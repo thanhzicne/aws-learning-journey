@@ -96,9 +96,10 @@ Ví dụ: Dev chỉ cần quyền EC2 + S3, không cần quyền IAM hay Billing
 
 ## ❌ Khó khăn gặp phải
 
-| Vấn đề                                    | Cách giải quyết
-| Lúc đầu không biết chọn Region nào        | Chọn `ap-southeast-1` (Singapore) gần VN nhất, latency thấp
-| Nhầm IAM User và IAM Role                 | Đọc lại docs, User = người thật, Role = quyền cho service
+| Vấn đề | Cách giải quyết |
+| :--- | :--- |
+| Lúc đầu không biết chọn Region nào | Chọn `ap-southeast-1` (Singapore) gần VN nhất, latency thấp |
+| Nhầm IAM User và IAM Role | Đọc lại docs, User = người thật, Role = quyền cho service |
 
 ---
 

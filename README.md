@@ -23,7 +23,7 @@
 | **01** | AWS Foundation & IAM | ![AWS](https://img.shields.io/badge/-AWS-FF9900?logo=amazon-aws&logoColor=white&style=flat-square) |
 | **02** | Amazon S3 & Static Website | ![S3](https://img.shields.io/badge/-S3-569A31?logo=amazons3&logoColor=white&style=flat-square) |
 | **03** | EC2 & Linux Administration | ![Linux](https://img.shields.io/badge/-Linux-FCC624?logo=linux&logoColor=black&style=flat-square) |
-| **07** | Backend Development | ![Spring](https://img.shields.io/badge/-Spring_Boot-6DB33F?logo=springboot&logoColor=white&style=flat-square) | 
+| **07** | Backend Development | ![Spring](https://img.shields.io/badge/-Spring_Boot-6DB33F?logo=springboot&logoColor=white&style=flat-square) |
 | **08** | Frontend Integration | ![React](https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=black&style=flat-square) |
 | **09** | Containerization | ![Docker](https://img.shields.io/badge/-Docker-2496ED?logo=docker&logoColor=white&style=flat-square) |
 | **10** | CI/CD Automation | ![GitHub Actions](https://img.shields.io/badge/-GitHub_Actions-2088FF?logo=githubactions&logoColor=white&style=flat-square) |
