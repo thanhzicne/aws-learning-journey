@@ -19,7 +19,7 @@
 ## 📊 Tiến Độ Tổng Quan
 
 | Tuần | Chủ đề trọng tâm | Công nghệ |
-| :--- | :--- | :--- | :---: |
+| :--- | :--- | :--- |
 | **01** | AWS Foundation & IAM | ![AWS](https://img.shields.io/badge/-AWS-FF9900?logo=amazon-aws&logoColor=white&style=flat-square) |
 | **02** | Amazon S3 & Static Website | ![S3](https://img.shields.io/badge/-S3-569A31?logo=amazons3&logoColor=white&style=flat-square) |
 | **03** | EC2 & Linux Administration | ![Linux](https://img.shields.io/badge/-Linux-FCC624?logo=linux&logoColor=black&style=flat-square) |
