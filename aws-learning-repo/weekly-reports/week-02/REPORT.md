@@ -80,7 +80,7 @@ Thêm policy cho phép public đọc file:
       "Effect": "Allow",
       "Principal": "*",
       "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::simple-ecommerce-fe-yourname/*"
+      "Resource": "arn:aws:s3:::demo-bucket-phamducthanh/*"
     }
   ]
 }
