@@ -20,7 +20,7 @@
 
 ## 🏆 Milestones đã đạt
 
-- [x] AWS Account created + MFA enabled
+- [x] AWS Account created
 - [x] IAM Users & Groups setup
 - [x] Budget alerts configured
 - [x] S3 Static website live

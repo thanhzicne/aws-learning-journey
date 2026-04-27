@@ -64,10 +64,10 @@ Mỗi file `REPORT.md` trong tuần sẽ gồm:
 
 ---
 
-## 🔗 Links quan trọng
+## 🔗 Links
 
 - 📄 [AWS Account](https://aws.amazon.com/console/)
-- 📚 [AWS Skill Builder](https://aws.amazon.com/training/)
-- 🎥 [Playlist YouTube](https://youtube.com/playlist?...)
+- 📚 [AWS Study](https://awsstudygroup.com/)
+- 🎥 [Playlist YouTube](https://www.youtube.com/playlist?list=PL4NoNM0L1m72HCTkOQUiIsHT8LRxdjeKJ)
 
 ---
