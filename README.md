@@ -35,18 +35,18 @@
 
 ```bash
 aws-learning-repo/
-├── README.md                    ← File này (tổng quan)
+├── README.md                    ← File tổng quan
 ├── progress/
-│   └── TIMELINE.md              ← Timeline chi tiết, giờ học
+│   └── TIMELINE.md              ← Timeline chi tiết, kết quả học
 ├── weekly-reports/
 │   ├── week-01/
 │   │   ├── REPORT.md            ← Báo cáo tuần
-│   │   └── screenshots/         ← Ảnh chụp màn hình
+│   │
 │   ├── week-02/
 │   │   └── REPORT.md
 │   └── ...
 └── screenshots/
-    ├── week-01/                 ← Screenshots IAM, MFA, Budget
+    ├── week-01/                 ← Screenshots IAM, Budget
     ├── week-02/                 ← Screenshots S3, Static site
     └── ...
 
