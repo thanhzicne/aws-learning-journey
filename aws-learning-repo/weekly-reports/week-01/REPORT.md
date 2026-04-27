@@ -40,6 +40,7 @@ IAM Structure:
 ```
 
 > 📸 **Screenshot:** [02-iam-dashboard](../../screenshots/week-01/02-iam-dashboard.png)
+>
 > 📸 **Screenshot:** [03-iam-users-created](../../screenshots/week-01/03-iam-users-created.png)
 
 ---
@@ -58,7 +59,7 @@ Billing and Cost Management giúp:
 - Xem lịch sử thanh toán
 - Quản lý phương thức thanh toán (Visa/MasterCard)
 
-> 📸 **Screenshot:** [04-CloudWatch](../../screenshots/week-01/04-CloudWatch.png)
+> 📸 **Screenshot:** [04-billing-and-cost-management](../../screenshots/week-01/04-billing-and-cost-management.png)
 
 ---
 

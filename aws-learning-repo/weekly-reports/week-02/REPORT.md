@@ -13,17 +13,6 @@
 
 ---
 
-## 📚 Tài liệu đã học
-
-| Tài nguyên | Ghi chú |
-| :--- | :--- |
-| AWS Documentation: S3 User Guide | Phần Getting Started + Bucket Policy |
-| YouTube: Tech with Tim - S3 Setup | Làm theo từng bước |
-| YouTube: AWS Demos - Static Website Hosting | Xem 2 lần |
-| AWS Skill Builder: S3 module | Có quiz |
-
----
-
 ## 🔧 Bài tập thực hành
 
 ### ✅ Bước 1: Tạo S3 Bucket
