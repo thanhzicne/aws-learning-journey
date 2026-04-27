@@ -17,18 +17,18 @@
 
 ### ✅ Bước 1: Tạo S3 Bucket
 
-Tạo bucket `simple-ecommerce-fe-[tên-bạn]` (bucket name phải unique toàn cầu):
+Tạo bucket name: demo-bucket-phamducthanh (bucket name phải unique toàn cầu):
 
-- Region: `ap-southeast-1`
+- Region: `ap-southeast-2`
 - Block all public access: **OFF** (để host static site)
 - Versioning: **Enabled**
 
 ```bash
 # Hoặc tạo bằng AWS CLI:
-aws s3 mb s3://simple-ecommerce-fe-yourname --region ap-southeast-1
+aws s3 mb s3://demo-bucket-phamducthanh --region ap-southeast-2
 ```
 
-> 📸 **Screenshot:** [`01-s3-bucket-created.png`](./screenshots/01-s3-bucket-created.png)
+> 📸 **Screenshot:** [01-s3-bucket-created](../../screenshots/week-02/01-s3-bucket-created.png)
 
 ---
 
@@ -42,7 +42,7 @@ Tạo 2 file HTML cơ bản:
 <html>
 <head><title>E-Commerce Mini</title></head>
 <body>
-  <h1>Welcome to E-Commerce Mini Cloud! ☁️</h1>
+  <h1>Pham Duc Thanh</h1>
   <p>Hosted on AWS S3</p>
   <a href="products.html">View Products</a>
 </body>
@@ -51,8 +51,7 @@ Tạo 2 file HTML cơ bản:
 
 Upload lên S3 bucket qua Console.
 
-> 📸 **Screenshot:** [`02-files-uploaded.png`](./screenshots/02-files-uploaded.png)
-
+> 📸 **Screenshot:** [02-files-uploaded](../../screenshots/week-02/002-files-uploaded.png)
 ---
 
 ### ✅ Bước 3: Cấu hình Static Website Hosting
@@ -63,10 +62,9 @@ Vào bucket → Properties → Static website hosting:
 - Index document: `index.html`
 - Error document: `error.html`
 
-Endpoint URL: `http://simple-ecommerce-fe-yourname.s3-website-ap-southeast-1.amazonaws.com`
+Endpoint URL: `http://demo-bucket-phamducthanh.s3-website-ap-southeast-2.amazonaws.com`
 
-> 📸 **Screenshot:** [`03-static-hosting-config.png`](./screenshots/03-static-hosting-config.png)
-
+> 📸 **Screenshot:** [03-static-hosting-config](../../screenshots/week-02/03-static-hosting-config.png)
 ---
 
 ### ✅ Bước 4: Cấu hình Bucket Policy (Public Read)
@@ -88,8 +86,7 @@ Thêm policy cho phép public đọc file:
 }
 ```
 
-> 📸 **Screenshot:** [`04-bucket-policy.png`](./screenshots/04-bucket-policy.png)
-
+> 📸 **Screenshot:** [04-bucket-policy](../../screenshots/week-02/04-bucket-policy.png)
 ---
 
 ### ✅ Bước 5: Upload ảnh sản phẩm & test access
@@ -97,11 +94,11 @@ Thêm policy cho phép public đọc file:
 Upload 3 ảnh sản phẩm vào folder `images/`. Test URL trực tiếp:
 
 ```text
-https://simple-ecommerce-fe-yourname.s3.ap-southeast-1.amazonaws.com/images/product1.jpg
+https://demo-bucket-phamducthanh.s3.ap-southeast-2.amazonaws.com/images/avt.jpg
 ```
 
-> 📸 **Screenshot:** [`05-website-live.png`](./screenshots/05-website-live.png)  
-> 📸 **Screenshot:** [`06-product-images-accessible.png`](./screenshots/06-product-images-accessible.png)
+> 📸 **Screenshot:** [05-website-live](../../screenshots/week-02/05-website-live.png)
+> 📸 **Screenshot:** [06-product-images-accessible](../../screenshots/week-02/06-product-images-accessible.png)
 
 ---
 
@@ -116,16 +113,6 @@ https://simple-ecommerce-fe-yourname.s3.ap-southeast-1.amazonaws.com/images/prod
 | **ACL** | Access Control List — kiểm soát ai đọc/ghi được |
 | **Bucket Policy** | JSON policy áp dụng cho toàn bucket |
 | **Presigned URL** | URL tạm thời để share private object |
-
-### S3 Storage Classes (Chi phí giảm dần)
-
-``` text
-S3 Standard        → Truy cập thường xuyên
-S3 Standard-IA     → Truy cập không thường xuyên
-S3 One Zone-IA     → Giống Standard-IA, 1 AZ (rẻ hơn)
-S3 Glacier         → Archive, lấy lại mất vài giờ
-S3 Glacier Deep    → Archive lâu dài, rẻ nhất
-```
 
 ### Versioning
 
@@ -145,7 +132,7 @@ Khi bật versioning, mỗi lần upload lại file cũ sẽ **không ghi đè**
 
 ## 📊 Kết quả đạt được
 
-- ✅ Static website chạy live trên S3: `http://simple-ecommerce-fe-yourname.s3-website-ap-southeast-1.amazonaws.com`
+- ✅ Static website chạy live trên S3: `http://demo-bucket-phamducthanh.s3-website-ap-southeast-2.amazonaws.com`
 - ✅ Bucket versioning enabled
 - ✅ Ảnh sản phẩm accessible qua URL công khai
 - ✅ Hiểu rõ sự khác biệt giữa ACL và Bucket Policy
@@ -161,4 +148,4 @@ Khi bật versioning, mỗi lần upload lại file cũ sẽ **không ghi đè**
 
 ---
 
-*Cập nhật: 03/05/2026 | [Pham Đuc Thanh]*
+*Cập nhật: 27/04/2026 | [Pham Đuc Thanh]*
