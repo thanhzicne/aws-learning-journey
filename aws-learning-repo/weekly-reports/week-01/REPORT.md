@@ -7,18 +7,8 @@
 ## 🎯 Mục tiêu tuần này
 
 - [x] Hiểu cấu trúc global của AWS (Regions, AZs, Edge Locations)
-- [x] Thiết lập tài khoản an toàn với IAM + MFA
-- [x] Cấu hình Budget & Billing Alerts
+- [x] CHiểu được Billing and Cost Management
 - [x] Hiểu được IAM role và permission model
-
----
-
-## 📚 Tài liệu đã học
-
-AWS Cloud Practitioner Essentials (Skill Builder)
-YouTube: A Cloud Guru - AWS Global Infrastructure
-YouTube: Linux Academy - IAM Deep Dive
-AWS Documentation: IAM User Guide
 
 ---
 
@@ -54,18 +44,19 @@ IAM Structure:
 
 ---
 
-### ✅ Bài tập 3: Tìm hiểu CloudWatch
+### ✅ Bài tập 3: Tìm hiểu Billing and Cost Management
 
-CloudWatch là dịch vụ dùng để giám sát (monitoring) tài nguyên và ứng dụng trên AWS như:
+Billing and Cost Management trong Amazon Web Services (AWS) là dịch vụ dùng để theo dõi chi phí, kiểm soát ngân sách và quản lý thanh toán cho toàn bộ tài nguyên AWS đang sử dụng.
 
-- EC2 (CPU, RAM, Disk)
-- RDS
-- Lambda
-- S3
-- Load Balancer
-- Billing
-- Logs ứng dụng
-- Cảnh báo khi hệ thống lỗi
+Billing and Cost Management giúp:
+
+- Xem tổng chi phí AWS theo ngày / tháng
+- Kiểm tra dịch vụ nào đang phát sinh tiền (EC2, RDS, S3…)
+- Thiết lập cảnh báo khi gần hết Free Tier
+- Tạo ngân sách giới hạn chi tiêu (Budget)
+- Tải hóa đơn thanh toán (Invoices)
+- Xem lịch sử thanh toán
+- Quản lý phương thức thanh toán (Visa/MasterCard)
 
 > 📸 **Screenshot:** [04-CloudWatch](../../screenshots/week-01/04-CloudWatch.png)
 
@@ -107,7 +98,7 @@ Ví dụ: Dev chỉ cần quyền EC2 + S3, không cần quyền IAM hay Billing
 
 - ✅ Tạo tài khoản AWS
 - ✅ IAM Users & Groups cấu hình đúng theo Least Privilege
-- ✅ CloudWatch đang hoạt động
+- ✅ Kiểm tra Billing and Cost Management để theo dõi chi phí
 - ✅ Không lo mất tiền ngoài ý muốn
 
 ---

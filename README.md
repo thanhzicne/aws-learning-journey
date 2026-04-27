@@ -1,7 +1,7 @@
 # ☁️ AWS Learning Journey - 12 Tuần
 
 > **Mục tiêu:** Nắm vững AWS
-> 
+>
 > **Thời gian:** 12 tuần (17/04/2026 - 10/07/2026)
 
 ---
@@ -13,7 +13,7 @@
 | **Họ tên** | Phạm Đức Thành |
 | **Email** | [pdthanh2004@gmail.com](mailto:pdthanh2004@gmail.com) |
 | **Bắt đầu** | 17/04/2026 |
-| **Dự kiến hoàn thành** | 10/07/2026 |
+| **Hoàn thành** | 10/07/2026 |
 
 ---
 
