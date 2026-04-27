@@ -49,6 +49,7 @@ aws-learning-repo/
     ├── week-01/                 ← Screenshots IAM, Budget
     ├── week-02/                 ← Screenshots S3, Static site
     └── ...
+```
 
 ---
 
