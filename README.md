@@ -1,6 +1,7 @@
 # ☁️ AWS Learning Journey - 12 Tuần
 
 > **Mục tiêu:** Nắm vững AWS
+> 
 > **Thời gian:** 12 tuần (17/04/2026 - 10/07/2026)
 
 ---
