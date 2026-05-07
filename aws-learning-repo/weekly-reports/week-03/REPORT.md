@@ -1,30 +1,26 @@
 # 📅 Báo cáo Tuần 3 — EC2 + Linux + Security Group
 
-> **Trạng thái:** 🔄 Đang học  
-> **Thời gian học:** ~X giờ (11/05/2026 – 17/05/2026)  
-> **Mentor review:** ⏳ Chưa nộp
+> **Thời gian học:** (04/05/2026 – 10/05/2026)  
 
 ---
 
 ## 🎯 Mục tiêu tuần này
 
-- [ ] Hiểu EC2: instance types, AMI, key pair
-- [ ] Launch EC2 instance (Ubuntu t2.micro Free Tier)
-- [ ] Cấu hình Security Group (SSH, HTTP, HTTPS)
-- [ ] SSH vào EC2 từ máy local
-- [ ] Cài đặt Nginx và chạy web server
+- [x] Hiểu EC2: instance types, AMI, key pair
+- [x] Launch EC2 instance (Ubuntu t2.micro Free Tier)
+- [x] Cấu hình Security Group (SSH, HTTP, HTTPS)
+- [x] SSH vào EC2 từ máy local
+- [x] Cài đặt Nginx và chạy web server
 
 ---
 
 ## 📚 Tài liệu đã học
 
-| Tài nguyên | Thời gian | Ghi chú |
-|---|---|---|
-| AWS Documentation: EC2 User Guide | ... | |
-| YouTube: Nana DevOps - EC2 Tutorial | 30 phút | |
-| YouTube: AWS re:Invent - EC2 Best Practices | 45 phút | |
-
-> ✏️ *Điền thêm khi học xong*
+| Tài liệu | Thời gian | Ghi chú |
+| :--- | :--- | :--- |
+| <https://www.youtube.com/watch?v=L_lSsEbh3LQ> | 6:08 | How to SSH into an AWS EC2 Instance using PowerShell |
+| <https://www.youtube.com/watch?v=86Tuwtn3zp0> | 5:28 | How to SSH into an EC2 Instance using PowerShell |
+| <https://www.youtube.com/watch?v=VRoG6U6xMa4> | 5:57 | Install Nginx Ubuntu EC2 AWS |
 
 ---
 
@@ -33,13 +29,13 @@
 ### ✅/🔄 Bước 1: Launch EC2 Instance
 
 Cấu hình instance:
+
 - AMI: Ubuntu Server 22.04 LTS (Free Tier)
-- Instance type: `t2.micro` (1 vCPU, 1GB RAM)
+- Instance type: `t3.micro` (2 vCPU, 1GB RAM)
 - Key pair: Tạo mới `aws-learning-key.pem`
 - Storage: 8GB gp2
 
-> 📸 **Screenshot:** [`01-ec2-launch-config.png`](./screenshots/01-ec2-launch-config.png)
-
+> 📸 **Screenshot:** [01-ec2-launch-config](../../screenshots/week-03/01-ec2-launch-config.png)
 ---
 
 ### ✅/🔄 Bước 2: Cấu hình Security Group
@@ -47,15 +43,14 @@ Cấu hình instance:
 Tạo Security Group `web-server-sg`:
 
 | Type | Protocol | Port | Source | Lý do |
-|---|---|---|---|---|
+| :--- | :--- | :--- | :--- | :--- |
 | SSH | TCP | 22 | My IP | Remote access |
 | HTTP | TCP | 80 | 0.0.0.0/0 | Web traffic |
 | HTTPS | TCP | 443 | 0.0.0.0/0 | Secure web |
 
 > ⚠️ **Lưu ý bảo mật:** SSH chỉ cho phép My IP, không mở 0.0.0.0/0
-
-> 📸 **Screenshot:** [`02-security-group.png`](./screenshots/02-security-group.png)
-
+>
+> 📸 **Screenshot:** [02-security-group](../../screenshots/week-03/02-security-group.png)
 ---
 
 ### ✅/🔄 Bước 3: SSH vào EC2
@@ -65,15 +60,14 @@ Tạo Security Group `web-server-sg`:
 chmod 400 aws-learning-key.pem
 
 # SSH vào EC2
-ssh -i "aws-learning-key.pem" ubuntu@<EC2-PUBLIC-IP>
+ssh -i "aws-learning-key.pem" ubuntu@3.26.104.170
 
 # Kết quả mong đợi:
-# Welcome to Ubuntu 22.04.x LTS
-# ubuntu@ip-xxx-xxx-xxx-xxx:~$
+# Welcome to Ubuntu 24.04.4 LTS (GNU/Linux 6.17.0-1012-aws x86_64)
+# ubuntu@ip-172-31-24-73:~$
 ```
 
-> 📸 **Screenshot:** [`03-ssh-connected.png`](./screenshots/03-ssh-connected.png)
-
+> 📸 **Screenshot:** [03-ssh-connected](../../screenshots/week-03/03-ssh-connected.png)
 ---
 
 ### ✅/🔄 Bước 4: Cài Nginx Web Server
@@ -93,24 +87,18 @@ sudo systemctl enable nginx
 sudo systemctl status nginx
 ```
 
-Truy cập `http://<EC2-PUBLIC-IP>` → thấy trang "Welcome to Nginx"
+Truy cập `http://3.26.104.170` → thấy trang "Welcome to Nginx"
 
-> 📸 **Screenshot:** [`04-nginx-running.png`](./screenshots/04-nginx-running.png)  
-> 📸 **Screenshot:** [`05-nginx-browser.png`](./screenshots/05-nginx-browser.png)
-
----
-
-### 🔄 Bước 5: [Thêm bài tập nếu có]
-
-> ✏️ *Cập nhật khi hoàn thành*
-
+> 📸 **Screenshot:** [04-nginx-running](../../screenshots/week-03/04-nginx-running.png)
+>
+> 📸 **Screenshot:** [05-nginx-browser](../../screenshots/week-03/05-nginx-browser.png)
 ---
 
 ## 💡 Kiến thức quan trọng đã học
 
 ### EC2 Instance Types (Naming Convention)
 
-```
+```bash
 t3.micro
 │ │  └─── Size: nano/micro/small/medium/large/xlarge
 │ └────── Generation: số càng lớn càng mới
@@ -123,45 +111,39 @@ t3.micro
 ```
 
 ### EBS vs Instance Store
+
 | | EBS | Instance Store |
-|---|---|---|
-| Persistence | Tồn tại khi stop | Mất khi stop |
-| Speed | Chậm hơn | Nhanh hơn |
-| Use case | OS, database | Cache, temp |
+| :--- | :--- | :--- |
+| Dữ liệu khi tắt máy | Vẫn giữ nguyên | Mất sạch |
+| Tốc độ | Chậm hơn | Nhanh hơn |
+| Dùng cho | Hệ điều hành, database | Cache, dữ liệu tạm |
 
 ### Security Group vs NACL
+
 | | Security Group | NACL |
-|---|---|---|
-| Level | Instance level | Subnet level |
-| Rules | Allow only | Allow + Deny |
-| Stateful | ✅ | ❌ |
+| :--- | :--- | :--- |
+| Tầng bảo vệ | Instance (từng máy) | Subnet (cả nhóm máy) |
+| Loại rule | Chỉ cho phép | Cho phép + Chặn |
+| Stateful | ✅ Có | ❌ Không |
 
 ---
 
 ## ❌ Khó khăn gặp phải
 
 | Vấn đề | Cách giải quyết |
-|---|---|
-| *(Điền khi gặp phải)* | |
+| :--- | :--- |
+| Security Group có rule MSSQL port 1433 mở 0.0.0.0/0 | Xóa rule MSSQL, không cần thiết cho bài tập này |
+| SSH port 22 để source 0.0.0.0/0 (mở toàn internet) | Đổi source type sang "My IP" để chỉ máy mình SSH được |
+| HTTP/HTTPS để source "My IP" thay vì 0.0.0.0/0 | Đổi sang "Anywhere" — web public phải cho mọi người truy cập |
+| Instance launch failed: "Microsoft SQL Server is not supported for t3.micro" | Chọn sai AMI (SQL Server thay vì Ubuntu 22.04 LTS) — quay lại chọn đúng AMI Ubuntu Free Tier |
 
 ---
 
 ## 📊 Kết quả đạt được
 
-- [ ] EC2 instance running, truy cập được qua SSH
-- [ ] Nginx chạy, access được qua browser
-- [ ] Hiểu Security Group inbound/outbound rules
-
----
-
-## ⏱️ Worklog giờ học
-
-| Ngày | Thời gian | Hoạt động |
-|---|---|---|
-| Thứ 2 (11/05) | ... | |
-| Thứ 3 (12/05) | ... | |
-| ... | ... | |
-| **Tổng** | **... giờ** | |
+- [x] EC2 instance running, truy cập được qua SSH
+- [x] Nginx chạy, access được qua browser
+- [x] Hiểu Security Group inbound/outbound rules
 
 ---
 
@@ -174,4 +156,4 @@ t3.micro
 
 ---
 
-*Cập nhật: [Ngày] | [Tên học viên]*
+*Cập nhật: 07/05/2026 | [Pham Đuc Thanh]*

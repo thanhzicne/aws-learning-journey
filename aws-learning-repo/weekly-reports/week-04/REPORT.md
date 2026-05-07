@@ -17,7 +17,7 @@
 ## 📚 Tài liệu đã học
 
 | Tài nguyên | Thời gian | Ghi chú |
-|---|---|---|
+| :--- | :--- | :--- |
 | *(Điền khi bắt đầu học)* | | |
 
 ---
