@@ -14,7 +14,7 @@
 | 8 | 08/06 – 14/06 | Frontend Integration + HTTPS | React, S3, CloudFront, ACM |
 | 9 | 15/06 – 21/06 | Containerization | Docker, Dockerfile, docker-compose |
 | 10 | 22/06 – 28/06 | CI/CD Automation | GitHub Actions, Docker Hub, ECS |
-| 11 | 29/06 – 05/07 | Monitoring, Logging & Secrets| CloudWatch, SNS, AWS Secrets Manager |
+| 11 | 29/06 – 05/07 | Monitoring, Logging & Secrets | CloudWatch, SNS, AWS Secrets Manager |
 | 12 | 06/07 – 10/07 | Final Project & Review | Tổng hợp toàn bộ hệ thống |
 
 ---
