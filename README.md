@@ -40,19 +40,26 @@
 
 ```bash
 aws-learning-repo/
-├── README.md                    ← File tổng quan
+├── README.md                        ← File tổng quan (file này)
 ├── progress/
-│   └── TIMELINE.md              ← Timeline chi tiết, kết quả học
+│   └── TIMELINE.md                  ← Timeline chi tiết & milestones
 ├── weekly-reports/
-│   ├── week-01/
-│   │   ├── REPORT.md            ← Báo cáo tuần
-│   │
-│   ├── week-02/
-│   │   └── REPORT.md
-│   └── ...
+│   ├── week-01/REPORT.md            ← IAM + Billing
+│   ├── week-02/REPORT.md            ← S3 + Static Site
+│   ├── week-03/REPORT.md            ← EC2 + Linux + Security Group
+│   ├── week-04/REPORT.md            ← VPC + Networking
+│   ├── week-05/REPORT.md            ← RDS + Database
+│   ├── week-06/REPORT.md            ← ELB + Auto Scaling
+│   ├── week-07/REPORT.md            ← Spring Boot Backend
+│   ├── week-08/REPORT.md            ← React Frontend + CloudFront + HTTPS
+│   ├── week-09/REPORT.md            ← Docker + Containerization
+│   ├── week-10/REPORT.md            ← GitHub Actions CI/CD
+│   ├── week-11/REPORT.md            ← Monitoring + Secrets Manager
+│   └── week-12/REPORT.md            ← Final Project & Submission
 └── screenshots/
-    ├── week-01/                 ← Screenshots IAM, Budget
-    ├── week-02/                 ← Screenshots S3, Static site
+    ├── week-01/                      ← IAM dashboard, Budget alerts
+    ├── week-02/                      ← S3 bucket, Static website live
+    ├── week-03/                      ← EC2 launch, Nginx browser
     └── ...
 ```
 
@@ -62,18 +69,19 @@ aws-learning-repo/
 
 Mỗi file `REPORT.md` trong tuần sẽ gồm:
 
-1. **Tóm tắt** - đã học được gì
-2. **Bài tập đã làm** - từng bước cụ thể
-3. **Screenshots** - ảnh minh họa
-4. **Khó khăn & cách giải quyết**
-5. **Kế hoạch tuần tiếp**
+1. **Mục tiêu** — học gì tuần này
+2. **Bài tập đã làm** — từng bước cụ thể, có code snippet
+3. **Screenshots** — ảnh minh chứng đã thực hành
+4. **Khó khăn & cách giải quyết** — ghi lại lỗi thực tế
+5. **Kế hoạch tuần tiếp**  — checkbox chuẩn bị
 
 ---
 
 ## 🔗 Links
 
 - 📄 [AWS Account](https://aws.amazon.com/console/)
-- 📚 [AWS Study](https://awsstudygroup.com/)
+- 📚 [AWS Study](https://cloudjourney.awsstudygroup.com/)
 - 🎥 [Playlist YouTube](https://www.youtube.com/playlist?list=PL4NoNM0L1m72HCTkOQUiIsHT8LRxdjeKJ)
+- 👥 [AWS Study Group Vietnam](https://www.facebook.com/groups/awsstudygroupfcj/)
 
 ---
