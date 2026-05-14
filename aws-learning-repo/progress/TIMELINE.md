@@ -26,7 +26,7 @@
 - [x] Budget alerts configured
 - [x] S3 Static website live
 - [x] EC2 instance running
-- [ ] VPC custom configured
+- [x] VPC custom configured
 - [ ] RDS connected from EC2
 - [ ] Backend API deployed
 - [ ] Frontend deployed on S3
