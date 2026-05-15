@@ -23,7 +23,7 @@ jobs:
           extended: true
 
       - name: Build website
-        run: hugo --minify --baseURL https://pdthanh2004.github.io/aws-learning-repo/
+        run: hugo --minify --baseURL https://thanhzicne.github.io/aws-learning-journey/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
