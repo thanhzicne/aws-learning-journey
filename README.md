@@ -1,87 +1,157 @@
-# ☁️ AWS Learning Journey - 12 Tuần
+# AWS Learning Journey & Internship Workshop Report
 
-> **Mục tiêu:** Nắm vững AWS
->
-> **Thời gian:** 12 tuần (17/04/2026 - 10/07/2026)
+This repository contains my 12-week AWS learning journey, internship reports, and a Hugo-based workshop website developed using the FCJ Workshop Template.
 
----
-
-## 👤 Thông tin học viên
-
-| Thông tin | Chi tiết |
-| :--- | :--- |
-| **Họ tên** | Phạm Đức Thành |
-| **Email** | [pdthanh2004@gmail.com](mailto:pdthanh2004@gmail.com) |
-| **Bắt đầu** | 17/04/2026 |
-| **Hoàn thành** | 10/07/2026 |
+The project documents my learning progress, hands-on AWS practices, and the implementation of a cloud-based e-commerce deployment system on AWS.
 
 ---
 
-## 📊 Tiến Độ Tổng Quan
+## 👨‍🎓 Student Information
 
-| Tuần | Chủ đề trọng tâm | Công nghệ |
-| :--- | :--- | :--- |
-| **01** | AWS Foundation & IAM | ![AWS](https://img.shields.io/badge/-AWS-FF9900?logo=amazon-aws&logoColor=white&style=flat-square) |
-| **02** | Amazon S3 & Static Website | ![S3](https://img.shields.io/badge/-S3-569A31?logo=amazons3&logoColor=white&style=flat-square) |
-| **03** | EC2 + Linux + Security Group | ![EC2](https://img.shields.io/badge/-EC2-FF9900?logo=amazon-aws&logoColor=white&style=flat-square) ![Nginx](https://img.shields.io/badge/-Nginx-009639?logo=nginx&logoColor=white&style=flat-square) ![Linux](https://img.shields.io/badge/-Linux-FCC624?logo=linux&logoColor=black&style=flat-square) |
-| **04** | VPC & Networking | ![VPC](https://img.shields.io/badge/-VPC-FF9900?logo=amazon-aws&logoColor=white&style=flat-square) |
-| **05** | RDS & Database | ![RDS](https://img.shields.io/badge/-RDS-527FFF?logo=amazon-rds&logoColor=white&style=flat-square) |
-| **06** | ELB & Auto Scaling | ![AWS](https://img.shields.io/badge/-AWS-FF9900?logo=amazon-aws&logoColor=white&style=flat-square) |
-| **07** | Backend Development | ![Spring](https://img.shields.io/badge/-Spring_Boot-6DB33F?logo=springboot&logoColor=white&style=flat-square) |
-| **08** | Frontend Integration | ![React](https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=black&style=flat-square) |
-| **09** | Containerization | ![Docker](https://img.shields.io/badge/-Docker-2496ED?logo=docker&logoColor=white&style=flat-square) |
-| **10** | CI/CD Automation | ![GitHub Actions](https://img.shields.io/badge/-GitHub_Actions-2088FF?logo=githubactions&logoColor=white&style=flat-square) |
-| **11** | Monitoring & Logging | ![AWS](https://img.shields.io/badge/-CloudWatch-FF9900?logo=amazon-aws&logoColor=white&style=flat-square) |
-| **12** | Final Project & Review | ![AWS](https://img.shields.io/badge/-AWS-FF9900?logo=amazon-aws&logoColor=white&style=flat-square) |
+| Field | Details |
+| --- | --- |
+| Full name | Phạm Đức Thành |
+| Phone number | 0392699212 |
+| Email | <pdthanh2004@gmail.com> |
+| University | Ho Chi Minh City University of Technology (HUTECH) |
+| Major | Information Technology |
+| Specialization | Software Engineering |
+| Internship company | Bootcamp First Cloud AI Journey |
+| Internship position | Cloud Engineer |
+| Internship duration | April 17, 2026 – July 10, 2026 |
 
 ---
 
-## 📁 Cấu trúc repo
+## 📚 Project Overview
+
+The workshop project focuses on deploying and monitoring a cloud-native e-commerce application using AWS services.
+
+### Main AWS Services Used
+
+- Amazon VPC
+- Amazon EC2
+- Amazon RDS
+- Amazon S3
+- AWS IAM
+- Amazon CloudWatch
+- Amazon SNS
+
+The system includes infrastructure setup, backend deployment, monitoring, alert configuration, and static website hosting.
+
+---
+
+## 🗂️ Website Structure
+
+The Hugo website follows the required FCJ workshop report structure:
+
+```text
+content/
+├── _index.md
+├── _index.vi.md
+├── 1-Worklog/
+├── 2-Proposal/
+├── 3-BlogsPosted/
+├── 4-EventParticipated/
+├── 5-Workshop/
+├── 6-Self-evaluation/
+└── 7-Feedback/
+```
+
+The website supports both:
+
+- 🇻🇳 Vietnamese
+- 🇺🇸 English
+
+content versions.
+
+---
+
+## 🚀 Run the Website Locally
+
+### Requirements
+
+- Hugo Extended
+- Git
+
+### Clone Repository
 
 ```bash
-aws-learning-repo/
-├── README.md                        ← File tổng quan (file này)
-├── progress/
-│   └── TIMELINE.md                  ← Timeline chi tiết & milestones
-├── weekly-reports/
-│   ├── week-01/REPORT.md            ← IAM + Billing
-│   ├── week-02/REPORT.md            ← S3 + Static Site
-│   ├── week-03/REPORT.md            ← EC2 + Linux + Security Group
-│   ├── week-04/REPORT.md            ← VPC + Networking
-│   ├── week-05/REPORT.md            ← RDS + Database
-│   ├── week-06/REPORT.md            ← ELB + Auto Scaling
-│   ├── week-07/REPORT.md            ← Spring Boot Backend
-│   ├── week-08/REPORT.md            ← React Frontend + CloudFront + HTTPS
-│   ├── week-09/REPORT.md            ← Docker + Containerization
-│   ├── week-10/REPORT.md            ← GitHub Actions CI/CD
-│   ├── week-11/REPORT.md            ← Monitoring + Secrets Manager
-│   └── week-12/REPORT.md            ← Final Project & Submission
-└── screenshots/
-    ├── week-01/                      ← IAM dashboard, Budget alerts
-    ├── week-02/                      ← S3 bucket, Static website live
-    ├── week-03/                      ← EC2 launch, Nginx browser
-    └── ...
+git clone https://github.com/your-username/your-repository.git
+cd your-repository
+```
+
+### Start Hugo Server
+
+```bash
+hugo server -D
+```
+
+Open the local URL displayed in the terminal, usually:
+
+```text
+http://localhost:1313
 ```
 
 ---
 
-## 📝 Cách viết báo cáo tuần
+## 📂 Included Workshop Resources
 
-Mỗi file `REPORT.md` trong tuần sẽ gồm:
+The repository also contains deployment and infrastructure files:
 
-1. **Mục tiêu** — học gì tuần này
-2. **Bài tập đã làm** — từng bước cụ thể, có code snippet
-3. **Screenshots** — ảnh minh chứng đã thực hành
-4. **Khó khăn & cách giải quyết** — ghi lại lỗi thực tế
-5. **Kế hoạch tuần tiếp**  — checkbox chuẩn bị
+```text
+static/files/
+├── cloudformation/
+│   └── network.yml
+├── docker/
+│   └── Dockerfile
+└── scripts/
+    └── deploy-backend.sh
+```
 
 ---
 
-## 🔗 Links
+## 🎯 Learning Objectives
 
-- 📄 [AWS Account](https://aws.amazon.com/console/)
-- 📚 [AWS Study](https://cloudjourney.awsstudygroup.com/)
-- 🎥 [Playlist YouTube](https://www.youtube.com/playlist?list=PL4NoNM0L1m72HCTkOQUiIsHT8LRxdjeKJ)
-- 👥 [AWS Study Group Vietnam](https://www.facebook.com/groups/awsstudygroupfcj/)
+During this internship and learning journey, I practiced:
+
+- Designing AWS networking architecture
+- Deploying applications on EC2
+- Managing databases with RDS
+- Hosting static websites with S3
+- Monitoring infrastructure using CloudWatch
+- Configuring alerts with SNS
+- Working with IAM permissions and security
+- Writing technical documentation and workshop reports
+
+---
+
+## 🛠️ Technologies Used
+
+- AWS Cloud Services
+- Hugo Static Site Generator
+- Markdown
+- Git & GitHub
+- Linux
+- Docker
+- CloudFormation
+
+---
+
+## 📌 Notes
+
+This repository is created for:
+
+- AWS learning documentation
+- Internship reporting
+- Workshop presentation
+- Personal portfolio and cloud engineering practice
+
+---
+
+## 📧 Contact
+
+If you would like to connect or discuss cloud engineering and AWS projects:
+
+- Email: <pdthanh2004@gmail.com>
 
 ---

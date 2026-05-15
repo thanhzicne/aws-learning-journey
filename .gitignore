@@ -1,0 +1,6 @@
+public/
+resources/
+.hugo_build.lock
+static/images/5-Workshop/
+static/images/2-Proposal/
+themes/hugo-theme-learn/exampleSite/
