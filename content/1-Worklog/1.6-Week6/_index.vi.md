@@ -37,21 +37,10 @@ Vào CloudWatch Console → Metrics → All metrics để xem toàn bộ metrics
 
 - `AWS/EC2`: CPUUtilization, NetworkIn, NetworkOut, StatusCheckFailed
 - `AWS/RDS`: CPUUtilization, DatabaseConnections, FreeStorageSpace
-- `AWS/S3`: BucketSizeBytes, NumberOfObjects
 
-Xem CloudWatch Logs từ VPC Flow Logs đã bật ở tuần 4: Log group `/aws/vpc/ecommerce-vpc`.
+Xem CloudWatch Logs từ VPC Flow Logs, EC2 & RDS đã bật ở tuần 4 và 5.
 
-Kiến trúc tổng thể của CloudWatch:
-
-```text
-EC2 / RDS / S3 → Metrics → CloudWatch
-                                ↓
-                             Alarms
-                                ↓
-                         SNS Topic → Email / SMS / Lambda
-```
-
-> **Screenshot:** ![CloudWatch metrics](/screenshots/week-06/01-cloudwatch-metrics.png)
+> **Screenshot:** ![CloudWatch metrics](/images/evidence/week-06/01-cloudwatch-metrics.png)
 
 #### Bài tập 2: Tạo CloudWatch Alarm & SNS Topic
 
@@ -74,9 +63,9 @@ Tạo CloudWatch Alarm cho CPU:
 
 **Lưu ý:** Alarm sẽ ở trạng thái `INSUFFICIENT_DATA` cho đến khi metric có đủ data points và SNS subscription được confirm.
 
-> **Screenshot:** ![CloudWatch alarm](/screenshots/week-06/01-cloudwatch-alarm.png)
+> **Screenshot:** ![CloudWatch alarm](/images/evidence/week-06/01-cloudwatch-alarm.png)
 >
-> **Screenshot:** ![SNS email received](/screenshots/week-06/02-sns-email-received.png)
+> **Screenshot:** ![SNS email received](/images/evidence/week-06/02-sns-email-received.png)
 
 #### Bài tập 3: Tạo CloudWatch Dashboard
 
@@ -89,7 +78,7 @@ Thêm các widget:
 - Number widget: `FreeStorageSpace` của RDS
 - Alarm status widget: hiển thị trạng thái các alarm
 
-> **Screenshot:** ![CloudWatch dashboard](/screenshots/week-06/03-cloudwatch-dashboard.png)
+> **Screenshot:** ![CloudWatch dashboard](/images/evidence/week-06/03-cloudwatch-dashboard.png)
 
 #### Bài tập 4: Cài đặt & Cấu hình AWS CLI
 
@@ -124,32 +113,26 @@ aws s3 ls --profile dev
 aws ec2 describe-instances --profile prod
 ```
 
-> **Screenshot:** ![CLI configured](/screenshots/week-06/03-cli-commands.png)
+> **Screenshot:** ![CLI configured](/images/evidence/week-06/03-cli-commands.png)
 
 #### Bài tập 5: Thực hành CLI Commands
 
 ```bash
-# S3
-aws s3 ls                                          # List tất cả buckets
-aws s3 ls s3://demo-bucket-phamducthanh            # List files trong bucket
-aws s3 cp file.txt s3://demo-bucket-phamducthanh/  # Upload file
 
 # EC2
-aws ec2 describe-instances \
-  --query 'Reservations[*].Instances[*].[InstanceId,State.Name,PublicIpAddress]' \
-  --output table
+aws ec2 describe-instances --query "Reservations[*].Instances[*].[InstanceId,State.Name,PublicIpAddress]" --output table
 
 # RDS
-aws rds describe-db-instances \
-  --query 'DBInstances[*].[DBInstanceIdentifier,DBInstanceStatus,Endpoint.Address]' \
-  --output table
+aws rds describe-db-instances --query 'DBInstances[*].[DBInstanceIdentifier,DBInstanceStatus,Endpoint.Address]' --output table
 
-# CloudWatch
-aws cloudwatch list-metrics --namespace AWS/EC2
+# CloudWatch:
 aws cloudwatch describe-alarms --output table
+
+# Profile dev:
+aws ec2 describe-instances --profile dev --output table
 ```
 
-> **Screenshot:** ![CLI commands output](/screenshots/week-06/04-cli-output.png)
+> **Screenshot:** ![CLI commands output](/images/evidence/week-06/04-cli-output.png)
 
 #### Khó khăn gặp phải
 

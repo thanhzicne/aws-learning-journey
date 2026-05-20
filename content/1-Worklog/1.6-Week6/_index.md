@@ -51,7 +51,7 @@ EC2 / RDS / S3 → Metrics → CloudWatch
                          SNS Topic → Email / SMS / Lambda
 ```
 
-> **Screenshot:** ![CloudWatch metrics](/screenshots/week-06/01-cloudwatch-metrics.png)
+> **Screenshot:** ![CloudWatch metrics](/images/evidence/week-06/01-cloudwatch-metrics.png)
 
 #### Exercise 2: Create CloudWatch Alarm & SNS Topic
 
@@ -74,9 +74,9 @@ Created CloudWatch Alarm for CPU utilization:
 
 **Note:** The alarm remains in `INSUFFICIENT_DATA` state until the SNS subscription is confirmed and the metric has enough data points.
 
-> **Screenshot:** ![CloudWatch alarm](/screenshots/week-06/01-cloudwatch-alarm.png)
+> **Screenshot:** ![CloudWatch alarm](/images/evidence/week-06/01-cloudwatch-alarm.png)
 >
-> **Screenshot:** ![SNS email received](/screenshots/week-06/02-sns-email-received.png)
+> **Screenshot:** ![SNS email received](/images/evidence/week-06/02-sns-email-received.png)
 
 #### Exercise 3: Create CloudWatch Dashboard
 
@@ -89,7 +89,7 @@ Added the following widgets:
 - Number widget: `FreeStorageSpace` for RDS
 - Alarm status widget: displays the state of all alarms
 
-> **Screenshot:** ![CloudWatch dashboard](/screenshots/week-06/03-cloudwatch-dashboard.png)
+> **Screenshot:** ![CloudWatch dashboard](/images/evidence/week-06/03-cloudwatch-dashboard.png)
 
 #### Exercise 4: Install & Configure AWS CLI
 
@@ -124,32 +124,26 @@ aws s3 ls --profile dev
 aws ec2 describe-instances --profile prod
 ```
 
-> **Screenshot:** ![CLI configured](/screenshots/week-06/03-cli-commands.png)
+> **Screenshot:** ![CLI configured](/images/evidence/week-06/03-cli-commands.png)
 
 #### Exercise 5: Practice CLI Commands
 
 ```bash
-# S3
-aws s3 ls                                          # List all buckets
-aws s3 ls s3://demo-bucket-phamducthanh            # List files in a bucket
-aws s3 cp file.txt s3://demo-bucket-phamducthanh/  # Upload a file
 
 # EC2
-aws ec2 describe-instances \
-  --query 'Reservations[*].Instances[*].[InstanceId,State.Name,PublicIpAddress]' \
-  --output table
+aws ec2 describe-instances --query "Reservations[*].Instances[*].[InstanceId,State.Name,PublicIpAddress]" --output table
 
 # RDS
-aws rds describe-db-instances \
-  --query 'DBInstances[*].[DBInstanceIdentifier,DBInstanceStatus,Endpoint.Address]' \
-  --output table
+aws rds describe-db-instances --query 'DBInstances[*].[DBInstanceIdentifier,DBInstanceStatus,Endpoint.Address]' --output table
 
-# CloudWatch
-aws cloudwatch list-metrics --namespace AWS/EC2
+# CloudWatch:
 aws cloudwatch describe-alarms --output table
+
+# Profile dev:
+aws ec2 describe-instances --profile dev --output table
 ```
 
-> **Screenshot:** ![CLI commands output](/screenshots/week-06/04-cli-output.png)
+> **Screenshot:** ![CLI commands output](/images/evidence/week-06/04-cli-output.png)
 
 #### Challenges Encountered
 

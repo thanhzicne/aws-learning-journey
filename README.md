@@ -6,7 +6,15 @@ The project documents my learning progress, hands-on AWS practices, and the impl
 
 ---
 
-## 👨‍🎓 Student Information
+## Live Demo
+
+The workshop website has been successfully deployed on GitHub Pages:
+
+Link: <https://thanhzicne.github.io/aws-learning-journey/>
+
+---
+
+## Student Information
 
 | Field | Details |
 | --- | --- |
@@ -22,11 +30,23 @@ The project documents my learning progress, hands-on AWS practices, and the impl
 
 ---
 
-## 📚 Project Overview
+## Project Overview
 
-The workshop project focuses on deploying and monitoring a cloud-native e-commerce application using AWS services.
+This workshop project focuses on building, deploying, and monitoring a cloud-native e-commerce application using AWS services.
 
-### Main AWS Services Used
+The project demonstrates:
+
+- AWS infrastructure provisioning
+- Cloud networking configuration
+- Application deployment on EC2
+- Database integration with RDS
+- Static website hosting
+- Monitoring and alert systems
+- Infrastructure documentation and reporting
+
+---
+
+## AWS Services Used
 
 - Amazon VPC
 - Amazon EC2
@@ -35,14 +55,11 @@ The workshop project focuses on deploying and monitoring a cloud-native e-commer
 - AWS IAM
 - Amazon CloudWatch
 - Amazon SNS
-
-The system includes infrastructure setup, backend deployment, monitoring, alert configuration, and static website hosting.
+- AWS CloudFormation
 
 ---
 
-## 🗂️ Website Structure
-
-The Hugo website follows the required FCJ workshop report structure:
+## Hugo Website Structure
 
 ```text
 content/
@@ -57,16 +74,14 @@ content/
 └── 7-Feedback/
 ```
 
-The website supports both:
+The website supports bilingual content:
 
 - 🇻🇳 Vietnamese
 - 🇺🇸 English
 
-content versions.
-
 ---
 
-## 🚀 Run the Website Locally
+## Run the Project Locally
 
 ### Requirements
 
@@ -76,8 +91,8 @@ content versions.
 ### Clone Repository
 
 ```bash
-git clone https://github.com/your-username/your-repository.git
-cd your-repository
+git clone https://github.com/thanhzicne/aws-learning-journey.git
+cd aws-learning-journey
 ```
 
 ### Start Hugo Server
@@ -86,7 +101,7 @@ cd your-repository
 hugo server -D
 ```
 
-Open the local URL displayed in the terminal, usually:
+Open your browser and access:
 
 ```text
 http://localhost:1313
@@ -94,38 +109,23 @@ http://localhost:1313
 
 ---
 
-## 📂 Included Workshop Resources
+## Learning Objectives
 
-The repository also contains deployment and infrastructure files:
-
-```text
-static/files/
-├── cloudformation/
-│   └── network.yml
-├── docker/
-│   └── Dockerfile
-└── scripts/
-    └── deploy-backend.sh
-```
-
----
-
-## 🎯 Learning Objectives
-
-During this internship and learning journey, I practiced:
+During this internship and AWS learning journey, I practiced:
 
 - Designing AWS networking architecture
-- Deploying applications on EC2
-- Managing databases with RDS
-- Hosting static websites with S3
-- Monitoring infrastructure using CloudWatch
-- Configuring alerts with SNS
-- Working with IAM permissions and security
+- Deploying applications on Amazon EC2
+- Managing relational databases with Amazon RDS
+- Hosting static websites using Amazon S3
+- Monitoring infrastructure using Amazon CloudWatch
+- Configuring notifications with Amazon SNS
+- Managing IAM permissions and security
 - Writing technical documentation and workshop reports
+- Working with Infrastructure as Code using CloudFormation
 
 ---
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 - AWS Cloud Services
 - Hugo Static Site Generator
@@ -137,21 +137,41 @@ During this internship and learning journey, I practiced:
 
 ---
 
-## 📌 Notes
+## Website Preview
 
-This repository is created for:
+Visit the deployed website here:
+
+Link: <https://thanhzicne.github.io/aws-learning-journey/>
+
+---
+
+## Purpose of This Repository
+
+This repository was created for:
 
 - AWS learning documentation
 - Internship reporting
 - Workshop presentation
-- Personal portfolio and cloud engineering practice
+- Cloud engineering practice
+- Personal portfolio development
 
 ---
 
 ## 📧 Contact
 
-If you would like to connect or discuss cloud engineering and AWS projects:
+If you would like to connect or discuss AWS and cloud engineering projects:
 
 - Email: <pdthanh2004@gmail.com>
+- GitHub: <https://github.com/thanhzicne>
+
+---
+
+## Acknowledgements
+
+Special thanks to:
+
+- Bootcamp First Cloud AI Journey
+- FCJ Workshop Template contributors
+- AWS Documentation and Learning Resources
 
 ---
