@@ -104,7 +104,7 @@ hugo server -D
 Open your browser and access:
 
 ```text
-http://localhost:1313
+http://localhost:1313/aws-learning-journey/
 ```
 
 ---
