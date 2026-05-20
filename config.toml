@@ -1,6 +1,6 @@
-baseURL = "/"
-relativeURLs = false
-canonifyURLs = false
+baseURL = "https://thanhzicne.github.io/aws-learning-journey/"
+relativeURLs = true
+canonifyURLs = true
 defaultContentLanguage = "en"
 theme = "hugo-theme-learn"
 
