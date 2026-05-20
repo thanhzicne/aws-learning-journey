@@ -45,7 +45,7 @@ Tạo DB Subnet Group `rds-subnet-group`:
 - VPC: `ecommerce-vpc`
 - Subnets: `private-subnet-1a` và `private-subnet-1b` (bắt buộc ít nhất 2 AZ để hỗ trợ Multi-AZ sau này)
 
-> **Screenshot:** ![DB Security Group and Subnet Group](/screenshots/week-05/01-rds-prereq.png)
+> **Screenshot:** ![DB Security Group and Subnet Group](/images/evidence/week-05/01-rds-prereq.png)
 
 #### Bài tập 2: Tạo RDS MySQL Instance
 
@@ -72,7 +72,7 @@ Nắm vững sự khác biệt giữa RDS và tự cài MySQL trên EC2:
 | Chi phí | Cao hơn | Thấp hơn |
 | Use case | Production | Học tập / Dev |
 
-> **Screenshot:** ![RDS created](/screenshots/week-05/01-rds-created.png)
+> **Screenshot:** ![RDS created](/images/evidence/week-05/01-rds-created.png)
 
 #### Bài tập 3: Kết nối RDS từ EC2
 
@@ -93,7 +93,7 @@ SELECT VERSION();
 
 RDS trong private subnet → chỉ có EC2 trong cùng VPC mới connect được → đây là **best practice** cho production.
 
-> **Screenshot:** ![RDS connected](/screenshots/week-05/02-rds-connected.png)
+> **Screenshot:** ![RDS connected](/images/evidence/week-05/02-rds-connected.png)
 
 #### Bài tập 4: Import Schema & Sample Data
 
@@ -120,16 +120,22 @@ INSERT INTO products (name, price, description, stock) VALUES
 SELECT * FROM products;
 ```
 
-> **Screenshot:** ![Schema imported](/screenshots/week-05/03-schema-imported.png)
+> **Screenshot:** ![Schema imported](/images/evidence/week-05/03-schema-imported.png)
 
 #### Khó khăn gặp phải
 
 | Vấn đề | Cách giải quyết |
 | :--- | :--- |
-| RDS status "Creating" mãi không lên "Available" | Bình thường, cần 5–10 phút để provision — chờ và refresh |
-| Connect bị timeout dù security group đúng | Kiểm tra lại DB Subnet Group — phải dùng private subnet, không phải public |
-| Quên mật khẩu master user sau khi tạo | Vào RDS → Modify instance → đổi master password |
-| `mysql: command not found` trên EC2 | Cài `mysql-client` trước: `sudo apt install mysql-client -y` |
+| SSH timeout dù EC2 đang Running | Inbound rule SSH nằm nhầm ở Outbound — chuyển sang Inbound rules |
+| SSH timeout sau khi sửa Security Group | Route table thiếu route `0.0.0.0/0 → IGW` — tạo Internet Gateway và thêm route |
+| Permission denied (publickey) khi SSH | EC2 được tạo với key pair cũ, file `.pem` là key mới — launch lại EC2 với đúng key pair |
+| EC2 không ra được internet (`curl` timeout) | Subnet chưa có Public IP — gán Elastic IP thủ công cho EC2 |
+| `sudo apt update` lỗi Network unreachable | Internet Gateway chưa attach vào VPC — tạo IGW và attach vào `ecommerce-vpc` |
+| ERROR 2003 khi connect RDS | RDS đang dùng `default` Security Group thay vì `db-server-sg` — Modify RDS đổi SG |
+| `db-server-sg` không hiện trong dropdown khi Modify RDS | RDS được tạo trong default VPC, không phải `ecommerce-vpc` — xóa và tạo lại RDS với đúng VPC |
+| Tạo DB Subnet Group thất bại | Chỉ có 1 subnet ở 1 AZ — tạo thêm subnet `private-subnet-1b` ở `ap-southeast-2b` |
+| SSL connection error khi dùng lệnh từ AWS Console | Bỏ `--ssl-mode=VERIFY_IDENTITY` — dùng lệnh đơn giản `mysql -h ... -u admin -p` |
+| EC2 Instance Connect thất bại | EC2 chưa có Public IP — gán Elastic IP trước |
 
 ### Kế hoạch tuần 6
 

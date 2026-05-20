@@ -45,7 +45,7 @@ Created DB Subnet Group `rds-subnet-group`:
 - VPC: `ecommerce-vpc`
 - Subnets: `private-subnet-1a` and `private-subnet-1b` (minimum 2 AZs required to support Multi-AZ later)
 
-> **Screenshot:** ![DB Security Group and Subnet Group](/screenshots/week-05/01-rds-prereq.png)
+> **Screenshot:** ![DB Security Group and Subnet Group](/images/evidence/week-05/01-rds-prereq.png)
 
 #### Exercise 2: Create RDS MySQL Instance
 
@@ -72,7 +72,7 @@ Understood the key difference between RDS and self-managed MySQL on EC2:
 | Cost | Higher | Lower |
 | Use case | Production | Learning / Dev |
 
-> **Screenshot:** ![RDS created](/screenshots/week-05/01-rds-created.png)
+> **Screenshot:** ![RDS created](/images/evidence/week-05/01-rds-created.png)
 
 #### Exercise 3: Connect to RDS from EC2
 
@@ -93,7 +93,7 @@ SELECT VERSION();
 
 RDS in a private subnet → only EC2 instances within the same VPC can connect → this is the **best practice** for production environments.
 
-> **Screenshot:** ![RDS connected](/screenshots/week-05/02-rds-connected.png)
+> **Screenshot:** ![RDS connected](/images/evidence/week-05/02-rds-connected.png)
 
 #### Exercise 4: Import Schema & Sample Data
 
@@ -120,16 +120,22 @@ INSERT INTO products (name, price, description, stock) VALUES
 SELECT * FROM products;
 ```
 
-> **Screenshot:** ![Schema imported](/screenshots/week-05/03-schema-imported.png)
+> **Screenshot:** ![Schema imported](/images/evidence/week-05/03-schema-imported.png)
 
 #### Challenges Encountered
 
-| Issue | Resolution |
+| Issue | Solution |
 | :--- | :--- |
-| RDS stuck in "Creating" status for a long time | Normal — provisioning takes 5–10 minutes; wait and refresh the console |
-| Connection timed out despite correct security group | DB Subnet Group was using public subnets instead of private — recreated with correct private subnets |
-| Forgot master user password after creation | Go to RDS → Modify instance → reset master password |
-| `mysql: command not found` on EC2 | Install the client first: `sudo apt install mysql-client -y` |
+| SSH timeout even though EC2 is Running | SSH Inbound rule was mistakenly placed in Outbound rules — move it to Inbound rules |
+| SSH timeout after fixing Security Group | Route table missing `0.0.0.0/0 → IGW` route — create Internet Gateway and add route |
+| Permission denied (publickey) when SSH | EC2 was launched with old key pair but `.pem` file is a new key — re-launch EC2 with correct key pair |
+| EC2 cannot reach internet (`curl` timeout) | Subnet had no Public IP — manually assign Elastic IP to EC2 |
+| `sudo apt update` fails with Network unreachable | Internet Gateway not attached to VPC — create IGW and attach to `ecommerce-vpc` |
+| ERROR 2003 when connecting to RDS | RDS was using `default` Security Group instead of `db-server-sg` — Modify RDS to change SG |
+| `db-server-sg` not showing in dropdown when Modifying RDS | RDS was created in default VPC instead of `ecommerce-vpc` — delete and recreate RDS in correct VPC |
+| DB Subnet Group creation failed | Only 1 subnet in 1 AZ — create additional subnet `private-subnet-1b` in `ap-southeast-2b` |
+| SSL connection error using command from AWS Console | Remove `--ssl-mode=VERIFY_IDENTITY` — use simple command `mysql -h ... -u admin -p` |
+| EC2 Instance Connect failed | EC2 had no Public IP — assign Elastic IP first |
 
 ### Plan for Week 6
 
