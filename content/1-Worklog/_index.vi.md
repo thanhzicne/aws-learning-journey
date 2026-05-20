@@ -8,15 +8,15 @@ pre: " <b> 1. </b> "
 
 | Tuần | Chủ đề | Chi tiết |
 | --- | --- | --- |
-| Week 1 | AWS Foundation và IAM | [1.1 Week 1 Worklog](1.1-Week1/) |
-| Week 2 | Amazon S3 static website | [1.2 Week 2 Worklog](1.2-Week2/) |
-| Week 3 | EC2, Linux, Security Group | [1.3 Week 3 Worklog](1.3-Week3/) |
-| Week 4 | VPC và networking | [1.4 Week 4 Worklog](1.4-Week4/) |
-| Week 5 | RDS database | [1.5 Week 5 Worklog](1.5-Week5/) |
-| Week 6 | Load balancing và scaling | [1.6 Week 6 Worklog](1.6-Week6/) |
-| Week 7 | Backend development | [1.7 Week 7 Worklog](1.7-Week7/) |
-| Week 8 | Frontend integration | [1.8 Week 8 Worklog](1.8-Week8/) |
-| Week 9 | Containerization | [1.9 Week 9 Worklog](1.9-Week9/) |
-| Week 10 | CI/CD automation | [1.10 Week 10 Worklog](1.10-Week10/) |
-| Week 11 | Monitoring và secrets | [1.11 Week 11 Worklog](1.11-Week11/) |
-| Week 12 | Final project và review | [1.12 Week 12 Worklog](1.12-Week12/) |
+| Tuần 1 | Nền tảng AWS và IAM | [1.1 Nhật ký công việc Tuần 1](1.1-Week1/) |
+| Tuần 2 | Website tĩnh Amazon S3 | [1.2 Nhật ký công việc Tuần 2](1.2-Week2/) |
+| Tuần 3 | EC2, Linux, Security Group | [1.3 Nhật ký công việc Tuần 3](1.3-Week3/) |
+| Tuần 4 | VPC và mạng | [1.4 Nhật ký công việc Tuần 4](1.4-Week4/) |
+| Tuần 5 | Cơ sở dữ liệu RDS | [1.5 Nhật ký công việc Tuần 5](1.5-Week5/) |
+| Tuần 6 | Giám sát CloudWatch và AWS CLI | [1.6 Nhật ký công việc Tuần 6](1.6-Week6/) |
+| Tuần 7 | Phát triển Backend | [1.7 Nhật ký công việc Tuần 7](1.7-Week7/) |
+| Tuần 8 | Tích hợp Frontend | [1.8 Nhật ký công việc Tuần 8](1.8-Week8/) |
+| Tuần 9 | Container hóa | [1.9 Nhật ký công việc Tuần 9](1.9-Week9/) |
+| Tuần 10 | Tự động hóa CI/CD | [1.10 Nhật ký công việc Tuần 10](1.10-Week10/) |
+| Tuần 11 | Tối ưu chi phí và kiểm tra bảo mật | [1.11 Nhật ký công việc Tuần 11](1.11-Week11/) |
+| Tuần 12 | Dự án cuối khóa và tổng kết | [1.12 Nhật ký công việc Tuần 12](1.12-Week12/) |
