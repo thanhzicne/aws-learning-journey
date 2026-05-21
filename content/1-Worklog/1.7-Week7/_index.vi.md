@@ -172,11 +172,15 @@ GET http://<EC2-PUBLIC-IP>:8080/api/products
 
 | Vấn đề | Cách giải quyết |
 | :--- | :--- |
-| `Communications link failure` khi connect RDS | EC2 và RDS phải cùng VPC; kiểm tra Security Group `db-server-sg` có cho phép port 3306 từ `web-server-sg` |
-| `Access Denied` khi upload S3 từ EC2 | Gắn IAM Role `ec2-s3-role` vào EC2 instance thay vì dùng access key hardcode |
-| Port 8080 không access được từ ngoài | Thêm inbound rule TCP 8080 vào Security Group của EC2 |
-| `java: command not found` trên EC2 | Cài Java trước: `sudo apt install openjdk-17-jre -y` |
-| Ứng dụng dừng khi đóng terminal SSH | Chạy nền với `nohup java -jar ecommerce-0.0.1-SNAPSHOT.jar &` |
+| Lỗi 500 và nguy cơ tạo file rác trên S3 khi upload ảnh | Thay đổi luồng logic trong Controller: Xác thực `Product ID` có tồn tại trong database trước bằng `service.getById(id)`, sau đó mới gọi S3 để upload file. |
+| Lỗi `Connection timed out` khi kết nối RDS từ Local | Xử lý kẹt mạng bằng cách bật tính năng `DNS resolution` và `DNS hostnames` cho VPC, đổi RDS sang `Publicly accessible` và mở rule port 3306 cho `My IP` trong Security Group. |
+| Ứng dụng không thể kết nối DB trong Private Subnet | Sử dụng SSH Tunneling: Mở cổng 22 trên EC2, chạy lệnh `ssh -L 3307:<RDS-Endpoint>:3306` để tạo đường hầm, rồi trỏ Spring Boot về `127.0.0.1:3307`. |
+| Lỗi `Public Key Retrieval is not allowed` của MySQL 8 | Chỉnh sửa file `application.properties`, bổ sung thêm tham số `allowPublicKeyRetrieval=true` vào cuối chuỗi kết nối URL để cho phép JDBC lấy khóa công khai. |
+| Lệnh `scp` báo lỗi `No such file or directory` | Do Terminal đang đứng sai thư mục (ở ngoài `Downloads`). Cần dùng lệnh `cd` di chuyển vào đúng thư mục gốc của project trước khi chạy lệnh copy file JAR. |
+| Lỗi khi chạy lệnh Linux (`sudo apt update`) trên Windows | Nhầm lẫn môi trường dòng lệnh. Cần phải chạy lệnh `ssh -i <file.pem> ubuntu@<EC2-IP>` để đi vào bên trong EC2 trước khi thực thi các lệnh cài đặt môi trường. |
+| `Access Denied` khi upload S3 từ EC2 | Không lưu hardcode Access Key. Tạo IAM Role `ec2-s3-role` với quyền `AmazonS3FullAccess` và gắn trực tiếp vào EC2 instance. |
+| Port 8080 không access được từ internet qua Postman | Vào Security Group gắn với EC2, thêm Inbound rule loại Custom TCP, port `8080`, Source là `0.0.0.0/0` (Anywhere-IPv4). |
+| Ứng dụng tắt ngay khi đóng cửa sổ Terminal SSH | Chạy ứng dụng dưới dạng tiến trình nền bằng lệnh: `nohup java -jar ecommerce-0.0.1-SNAPSHOT.jar > app.log 2>&1 &` |
 
 ### Kế hoạch tuần 8
 

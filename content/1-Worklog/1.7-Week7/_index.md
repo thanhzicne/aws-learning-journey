@@ -168,15 +168,19 @@ GET http://<EC2-PUBLIC-IP>:8080/api/products
 >
 > **Screenshot:** ![API test from Postman via EC2 IP](/images/evidence/week-07/03-api-postman-ec2.png)
 
-#### Challenges Encountered
+### Challenges & Solutions
 
-| Issue | Resolution |
+| Issue / Challenge | Solution |
 | :--- | :--- |
-| `Communications link failure` when connecting to RDS | EC2 and RDS must be in the same VPC; check that `db-server-sg` allows port 3306 from `web-server-sg` |
-| `Access Denied` when uploading to S3 from EC2 | Attach IAM Role `ec2-s3-role` to the EC2 instance instead of hardcoding access keys |
-| Port 8080 unreachable from outside | Add inbound rule TCP 8080 to the EC2 Security Group |
-| `java: command not found` on EC2 | Install Java first: `sudo apt install openjdk-17-jre -y` |
-| Application stops when SSH terminal closes | Run in the background: `nohup java -jar ecommerce-0.0.1-SNAPSHOT.jar &` |
+| 500 Internal Server Error and risk of orphaned files on S3 during image upload | Refactored the logic sequence in the Controller: Validated `Product ID` existence in the database first using `service.getById(id)` before executing the S3 API call. |
+| `Connection timed out` when connecting to RDS from local environment | Resolved network restrictions by enabling `DNS resolution` and `DNS hostnames` in the VPC, setting RDS to `Publicly accessible`, and allowing port 3306 for `My IP` in the Security Group's inbound rules. |
+| Application failed to connect to DB located in a Private Subnet | Utilized SSH Tunneling (Bastion Host): Opened port 22 on EC2, ran `ssh -L 3307:<RDS-Endpoint>:3306` to establish a secure tunnel, and pointed the Spring Boot datasource to `127.0.0.1:3307`. |
+| `Public Key Retrieval is not allowed` error in MySQL 8 | Modified `application.properties` by appending `allowPublicKeyRetrieval=true` to the JDBC URL, allowing the driver to retrieve the public key securely. |
+| `scp` command returned `No such file or directory` error | Terminal was pointing to the wrong working directory. Used the `cd` command to navigate to the project's root directory before executing the JAR file copy command. |
+| Failed to execute Linux commands (`sudo apt update`) on Windows PowerShell | Command-line environment confusion. Needed to successfully SSH into the EC2 instance using `ssh -i <file.pem> ubuntu@<EC2-IP>` before executing Linux package installation commands. |
+| `Access Denied` error when uploading to S3 from EC2 | Avoided hardcoding AWS Access Keys. Created an IAM Role `ec2-s3-role` with `AmazonS3FullAccess` permission and attached it directly to the EC2 instance. |
+| Port 8080 was inaccessible from the internet via Postman | Accessed the EC2 Security Group and added an Inbound rule: Type Custom TCP, Port `8080`, and Source `0.0.0.0/0` (Anywhere-IPv4). |
+| Spring Boot application terminated immediately upon closing the SSH Terminal | Deployed the application as a background process using the `nohup` command: `nohup java -jar ecommerce-0.0.1-SNAPSHOT.jar > app.log 2>&1 &` |
 
 ### Plan for Week 8
 
