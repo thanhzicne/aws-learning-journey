@@ -38,7 +38,7 @@ Tạo project tại [start.spring.io](https://start.spring.io) với cấu hình
 ```text
 Spring Initializr:
 - Project: Maven
-- Language: Java 17
+- Language: Java 25
 - Dependencies:
     Spring Web
     Spring Data JPA
@@ -64,7 +64,7 @@ aws.region=ap-southeast-1
 
 **Lưu ý bảo mật:** Không hardcode password trong `application.properties` — dùng biến môi trường `${DB_PASSWORD}` hoặc AWS Secrets Manager.
 
-> **Screenshot:** ![Spring Initializr setup](/screenshots/week-07/00-spring-init.png)
+> **Screenshot:** ![Spring Initializr setup](/images/evidence/week-07/00-spring-init.png)
 
 #### Bài tập 2: Product CRUD API
 
@@ -95,7 +95,16 @@ Repository  (JpaRepository)       — tương tác với RDS MySQL
 RDS MySQL (private subnet)
 ```
 
-> **Screenshot:** ![Postman API test](/screenshots/week-07/01-api-postman-test.png)
+>**GET**
+>**Screenshot:** ![Postman API test](/images/evidence/week-07/01-api-postman-test-GET.png)
+>**POST**
+>**Screenshot:** ![Postman API test](/images/evidence/week-07/01-api-postman-test-POST.png)
+>**GET ID**
+>**Screenshot:** ![Postman API test](/images/evidence/week-07/01-api-postman-test-GETID.png)
+>**PUT**
+>**Screenshot:** ![Postman API test](/images/evidence/week-07/01-api-postman-test-PUT.png)
+>**DELETE**
+>**Screenshot:** ![Postman API test](/images/evidence/week-07/01-api-postman-test-DELETE.png)
 
 #### Bài tập 3: Upload Ảnh Sản Phẩm lên S3
 
@@ -117,7 +126,11 @@ Endpoint upload ảnh (`POST /api/products/{id}/image`) nhận `MultipartFile`, 
 https://simple-ecommerce-fe-yourname.s3.ap-southeast-1.amazonaws.com/images/<filename>
 ```
 
-> **Screenshot:** ![S3 image upload](/screenshots/week-07/02-s3-image-upload.png)
+> **Screenshot:** ![S3 image upload](/images/evidence/week-07/02-s3-image-upload.png)
+>
+> **Screenshot:** ![S3 image upload](/images/evidence/week-07/03-s3-image-upload.png)
+>
+> **Screenshot:** ![S3 image upload](/images/evidence/week-07/04-s3-image-upload.png)
 
 #### Bài tập 4: Build & Deploy lên EC2
 
@@ -151,9 +164,9 @@ Test API từ Postman:
 GET http://<EC2-PUBLIC-IP>:8080/api/products
 ```
 
-> **Screenshot:** ![API running on EC2](/screenshots/week-07/02-api-running-ec2.png)
+> **Screenshot:** ![API running on EC2](/images/evidence/week-07/02-api-running-ec2.png)
 >
-> **Screenshot:** ![API test from Postman via EC2 IP](/screenshots/week-07/03-api-postman-ec2.png)
+> **Screenshot:** ![API test from Postman via EC2 IP](/images/evidence/week-07/03-api-postman-ec2.png)
 
 #### Khó khăn gặp phải
 
