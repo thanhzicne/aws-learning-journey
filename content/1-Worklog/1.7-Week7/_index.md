@@ -168,7 +168,7 @@ GET http://<EC2-PUBLIC-IP>:8080/api/products
 >
 > **Screenshot:** ![API test from Postman via EC2 IP](/images/evidence/week-07/03-api-postman-ec2.png)
 
-### Challenges & Solutions
+### Challenges Encountered
 
 | Issue / Challenge | Solution |
 | :--- | :--- |

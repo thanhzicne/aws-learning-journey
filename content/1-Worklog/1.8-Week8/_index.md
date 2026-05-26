@@ -133,7 +133,14 @@ public class ProductController { ... }
 
 Tested the complete flow: adding, editing, and deleting products as well as uploading images to S3.
 
-> **Screenshot:** ![CORS configured](/images/evidence/week-08/03-cors-configured.png)
+> **Admin Page:**
+> **Screenshot:** ![CORS configured](/images/evidence/week-08/03-admin-page.png)
+> **Add Product:**
+> **Screenshot:** ![CORS configured](/images/evidence/week-08/03-add-product.png)
+> **Edit Product:**
+> **Screenshot:** ![CORS configured](/images/evidence/week-08/03-edit-product.png)
+> **Delete Product:**
+> **Screenshot:** ![CORS configured](/images/evidence/week-08/03-delete-product.png)
 
 #### Exercise 4: Build & Deploy to S3 Static Hosting
 
@@ -154,18 +161,25 @@ aws s3 sync dist/ s3://simple-ecommerce-fe-yourname/ --delete
 ```
 
 > **Screenshot:** ![Frontend live on S3](/images/evidence/week-08/04-frontend-live.png)
+>
+> **Screenshot:** ![Frontend live on S3](/images/evidence/week-08/04-frontend-admin.png)
 
 #### Challenges Encountered
 
 | Problem | Solution |
 | :--- | :--- |
-| CORS error when React called the EC2 API | Added `@CrossOrigin(origins = "*")` to the backend controller |
-| S3 images not displaying on the frontend | Checked the Bucket Policy and Public Access settings on the S3 bucket |
-| React Router not working after S3 deployment | Set the Error Document to `index.html` in S3 Static Hosting settings |
+| `curl: (7) Failed to connect to port 8080` — cannot reach backend | Open port 8080 in EC2 Security Group Inbound rules (Add rule: Custom TCP, port 8080, source 0.0.0.0/0) |
+| SSH connection timeout — cannot SSH into EC2 | Local machine IP had changed, causing the SSH rule to block access; updated SSH inbound rule source to current IP or 0.0.0.0/0 |
+| Backend failed to start — `Access denied for user 'admin'` | RDS password was stored as environment variable `${DB_PASSWORD}` which was never set; passed it directly via `--spring.datasource.password=...` when running the jar |
+| `jar` command not found on EC2 | Used `unzip -p file.jar path/to/file` instead after installing with `sudo apt install unzip -y` |
+| Frontend showed `Network Error` even though backend was running | CORS was not configured on the backend; added `CorsConfig.java` with `addCorsMappings` allowing `allowedOriginPatterns("*")`, then rebuilt and redeployed the jar |
+| Browser blocked requests with `ERR_BLOCKED_BY_CLIENT` | AdBlock/ABP extension was blocking requests to the EC2 IP; opened an incognito window (`Ctrl+Shift+N`) or disabled the extension to bypass |
+| `scp` command returned `No such file or directory` | The `scp` command must be run from Windows CMD, not inside the SSH session; used the full quoted file path |
+| Warning `Calling setState synchronously within an effect` | Moved fetch logic out of `useEffect` body, used a `cancelled` flag to prevent state updates after component unmounts |
 
 ## Week 9 Plan
 
-- Learn about Amazon CloudFront and how to distribute static content.
-- Attach a CloudFront distribution to the S3 frontend bucket.
-- Configure a Custom Domain and SSL certificate using ACM.
-- Optimize performance with caching policies.
+- Learn Docker fundamentals: image, container, Dockerfile, layer caching.
+- Write Dockerfile for Spring Boot backend and React frontend (Nginx).
+- Configure `docker-compose.yml` to run the full stack locally.
+- Push Docker images to Docker Hub and run containers on EC2.

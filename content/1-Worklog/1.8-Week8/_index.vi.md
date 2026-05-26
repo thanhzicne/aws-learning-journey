@@ -133,7 +133,14 @@ public class ProductController { ... }
 
 Kiểm thử toàn bộ luồng: thêm, sửa, xóa sản phẩm và upload ảnh lên S3.
 
-> **Screenshot:** ![CORS configured](/images/evidence/week-08/03-cors-configured.png)
+> **Admin Page:**
+> **Screenshot:** ![CORS configured](/images/evidence/week-08/03-admin-page.png)
+> **Add Product:**
+> **Screenshot:** ![CORS configured](/images/evidence/week-08/03-add-product.png)
+> **Edit Product:**
+> **Screenshot:** ![CORS configured](/images/evidence/week-08/03-edit-product.png)
+> **Delete Product:**
+> **Screenshot:** ![CORS configured](/images/evidence/week-08/03-delete-product.png)
 
 #### Bài tập 4: Build & Deploy lên S3 Static Hosting
 
@@ -154,18 +161,25 @@ aws s3 sync dist/ s3://simple-ecommerce-fe-yourname/ --delete
 ```
 
 > **Screenshot:** ![Frontend live on S3](/images/evidence/week-08/04-frontend-live.png)
+>
+> **Screenshot:** ![Frontend live on S3](/images/evidence/week-08/04-frontend-admin.png)
 
 #### Khó khăn gặp phải
 
 | Vấn đề | Cách giải quyết |
 | :--- | :--- |
-| CORS error khi React gọi API EC2 | Thêm `@CrossOrigin(origins = "*")` vào backend controller |
-| Ảnh S3 không hiển thị trên frontend | Kiểm tra Bucket Policy và Public Access settings của S3 |
-| React Router không hoạt động sau khi deploy S3 | Cấu hình Error Document trỏ về `index.html` trong S3 Static Hosting |
+| `curl: (7) Failed to connect to port 8080` — không kết nối được backend | Mở port 8080 trên Security Group của EC2 (Inbound rules → Add rule Custom TCP 8080 source 0.0.0.0/0) |
+| SSH timeout — không SSH vào được EC2 | IP máy tính thay đổi khiến rule SSH bị chặn, sửa Source của rule SSH port 22 thành IP hiện tại hoặc 0.0.0.0/0 |
+| Backend không khởi động được — `Access denied for user 'admin'` | Mật khẩu RDS lưu dưới dạng biến môi trường `${DB_PASSWORD}` chưa được set, truyền thẳng qua tham số `--spring.datasource.password=...` khi chạy jar |
+| Lệnh `jar` không tìm thấy trên EC2 | Dùng `unzip -p file.jar path/to/file` thay thế, cài bằng `sudo apt install unzip -y` |
+| Frontend báo `Network Error` dù backend đã chạy | CORS chưa được cấu hình trên backend, thêm `CorsConfig.java` với `addCorsMappings` cho phép `allowedOriginPatterns("*")` rồi build và deploy lại jar |
+| Trình duyệt báo `ERR_BLOCKED_BY_CLIENT` | Extension AdBlock/ABP chặn request đến IP EC2, mở trình duyệt ẩn danh (`Ctrl+Shift+N`) hoặc tắt extension để bypass |
+| Lệnh `scp` báo `No such file or directory` | Lệnh `scp` phải chạy trên CMD Windows không phải trong SSH, dùng đường dẫn đầy đủ có dấu ngoặc kép |
+| Warning `Calling setState synchronously within an effect` | Tách logic fetch ra khỏi `useEffect`, dùng biến `cancelled` để tránh update state sau khi component unmount |
 
 ## Kế hoạch tuần 9
 
-- Tìm hiểu Amazon CloudFront và cách phân phối nội dung tĩnh.
-- Gắn CloudFront distribution vào S3 bucket frontend.
-- Cấu hình Custom Domain và SSL certificate với ACM.
-- Tối ưu hiệu năng với caching policies.
+- Tìm hiểu Docker cơ bản: image, container, Dockerfile, layer caching.
+- Viết Dockerfile cho Spring Boot backend và React frontend (Nginx).
+- Cấu hình `docker-compose.yml` để chạy toàn bộ stack trên local.
+- Push Docker images lên Docker Hub và chạy containers trên EC2.
