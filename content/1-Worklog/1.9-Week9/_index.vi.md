@@ -50,7 +50,7 @@ Docker Architecture:
 
 | Lệnh | Ý nghĩa |
 | :--- | :--- |
-| `FROM openjdk:17-jre-slim` | Base image: chỉ dùng JRE (runtime), không cần JDK để giảm kích thước |
+| `FROM eclipse-temurin:17-jre-alpine` | Base image: chỉ dùng JRE (runtime), không cần JDK để giảm kích thước |
 | `WORKDIR /app` | Đặt thư mục làm việc mặc định bên trong container |
 | `COPY target/*.jar app.jar` | Copy file JAR đã build vào image |
 | `EXPOSE 8080` | Khai báo port container lắng nghe (metadata, không tự mở port) |
@@ -58,7 +58,7 @@ Docker Architecture:
 
 ```dockerfile
 # Backend Dockerfile
-FROM openjdk:17-jre-slim
+FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 COPY target/*.jar app.jar
 EXPOSE 8080
@@ -79,7 +79,7 @@ Kết quả: image production chỉ ~30MB thay vì ~350MB nếu dùng một stag
 
 ```dockerfile
 # Frontend Dockerfile (Multi-stage)
-FROM node:18-alpine AS build
+FROM node:22-alpine AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
@@ -181,16 +181,19 @@ docker-compose up -d
 
 > **Screenshot:** ![Docker Hub images](/images/evidence/week-09/04-docker-hub-images.png)
 >
-> **Screenshot:** ![Containers running on EC2](/images/evidence/week-09/05-containers-running-ec2.png)
+> **Screenshot:** ![Containers running on EC2](/images/evidence/week-09/05-deploy-web-on-ec2.png)
+>
+> **Screenshot:** ![Containers running on EC2](/images/evidence/week-09/06-web-running-on-ec2.png)
 
 #### Khó khăn gặp phải
 
 | Vấn đề | Cách giải quyết |
 | :--- | :--- |
-| Image backend quá lớn (~500MB) | Đổi base image từ `openjdk:17` sang `openjdk:17-jre-slim` (~220MB) |
-| React Router trả 404 khi reload trên Nginx | Thêm `try_files $uri /index.html` vào `nginx.conf` |
-| Backend không kết nối được DB trong Compose | Sửa `DB_URL` dùng hostname `db` thay vì `localhost` |
-| `depends_on` không đủ, backend start trước khi MySQL ready | Thêm health check hoặc retry logic trong Spring Boot (`spring.datasource.hikari.connection-timeout`) |
+| Backend crash ngay khi chạy container một mình | Spring Boot cần kết nối database khi khởi động — phải có RDS running hoặc dùng Docker Compose |
+| `Communications link failure` khi kết nối RDS | Security Group RDS chưa mở port 3306 cho IP máy local — thêm inbound rule MySQL/Aurora port 3306 source My IP |
+| `docker-compose` not found trên EC2 Ubuntu | Cài bằng lệnh `sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose && sudo chmod +x /usr/local/bin/docker-compose` |
+| `push access denied` khi push lên Docker Hub | Chưa đăng nhập hoặc tag sai username — chạy `docker login` trước, tag đúng format `username/repo:tag` rồi mới push |
+| Trang trắng với lỗi `e.map is not a function` trên EC2 | `productService.js` gọi API sai URL — thiếu port 8080, sửa thành `http://13.210.73.163:8080/api` |
 
 ## Kế hoạch tuần 10
 

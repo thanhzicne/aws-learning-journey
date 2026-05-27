@@ -50,7 +50,7 @@ Docker Architecture:
 
 | Instruction | Meaning |
 | :--- | :--- |
-| `FROM openjdk:17-jre-slim` | Base image: JRE only (runtime), not the full JDK — reduces image size |
+| `FROM eclipse-temurin:17-jre-alpine` | Base image: JRE only (runtime), not the full JDK — reduces image size |
 | `WORKDIR /app` | Sets the default working directory inside the container |
 | `COPY target/*.jar app.jar` | Copies the pre-built JAR file into the image |
 | `EXPOSE 8080` | Documents the port the container listens on (metadata only, does not open the port) |
@@ -58,7 +58,7 @@ Docker Architecture:
 
 ```dockerfile
 # Backend Dockerfile
-FROM openjdk:17-jre-slim
+FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 COPY target/*.jar app.jar
 EXPOSE 8080
@@ -79,7 +79,7 @@ Result: the production image is ~30 MB instead of ~350 MB if a single stage were
 
 ```dockerfile
 # Frontend Dockerfile (Multi-stage)
-FROM node:18-alpine AS build
+FROM node:22-alpine AS build
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
@@ -181,16 +181,19 @@ docker-compose up -d
 
 > **Screenshot:** ![Docker Hub images](/images/evidence/week-09/04-docker-hub-images.png)
 >
-> **Screenshot:** ![Containers running on EC2](/images/evidence/week-09/05-containers-running-ec2.png)
+> **Screenshot:** ![Containers running on EC2](/images/evidence/week-09/05-deploy-web-on-ec2.png)
+>
+> **Screenshot:** ![Containers running on EC2](/images/evidence/week-09/06-web-running-on-ec2.png)
 
 #### Challenges Encountered
 
 | Problem | Solution |
 | :--- | :--- |
-| Backend image too large (~500 MB) | Switched base image from `openjdk:17` to `openjdk:17-jre-slim` (~220 MB) |
-| React Router returning 404 on page refresh via Nginx | Added `try_files $uri /index.html` to `nginx.conf` |
-| Backend could not connect to DB inside Compose | Fixed `DB_URL` to use the hostname `db` instead of `localhost` |
-| `depends_on` insufficient — backend started before MySQL was ready | Added health check or Spring Boot retry logic (`spring.datasource.hikari.connection-timeout`) |
+| Backend container crashes immediately when running alone | Spring Boot requires a database connection on startup — RDS must be running or use Docker Compose to start all services together |
+| `Communications link failure` when connecting to RDS | RDS Security Group does not allow port 3306 from local machine — add inbound rule MySQL/Aurora port 3306 source My IP |
+| `docker-compose` not found on EC2 Ubuntu | Install manually with `sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose && sudo chmod +x /usr/local/bin/docker-compose` |
+| `push access denied` when pushing to Docker Hub | Not logged in or incorrect image tag — run `docker login` first, then tag with correct format `username/repo:tag` before pushing |
+| Blank page with `e.map is not a function` error on EC2 | `productService.js` was calling the wrong API URL — missing port 8080, fixed by changing to `http://13.210.73.163:8080/api` |
 
 ## Week 10 Plan
 
