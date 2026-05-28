@@ -92,10 +92,23 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Build with Maven
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Build backend with Maven
       run: |
         cd backend
-        ./mvnw clean package -DskipTests
+        mvn clean package -DskipTests
+
+    - name: Build frontend
+      run: |
+        cd frontend
+        npm install
+        npm run build
+      env:
+        VITE_API_URL: http://${{ secrets.EC2_HOST }}:8080/api
 
     - name: Login to Docker Hub
       uses: docker/login-action@v2
@@ -103,10 +116,18 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_TOKEN }}
 
-    - name: Build & Push Docker image
+    - name: Build and push backend image
       run: |
         docker build -t ${{ secrets.DOCKER_USERNAME }}/ecommerce-backend:latest ./backend
         docker push ${{ secrets.DOCKER_USERNAME }}/ecommerce-backend:latest
+
+    - name: Build and push frontend image
+      run: |
+        docker build \
+          --build-arg VITE_API_URL=http://${{ secrets.EC2_HOST }}:8080/api \
+          -t ${{ secrets.DOCKER_USERNAME }}/ecommerce-frontend:latest \
+          ./frontend
+        docker push ${{ secrets.DOCKER_USERNAME }}/ecommerce-frontend:latest
 
     - name: Deploy to EC2
       uses: appleboy/ssh-action@master
@@ -116,13 +137,25 @@ jobs:
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
           docker pull ${{ secrets.DOCKER_USERNAME }}/ecommerce-backend:latest
-          docker stop backend || true
-          docker rm backend || true
+          docker pull ${{ secrets.DOCKER_USERNAME }}/ecommerce-frontend:latest
+
+          docker stop backend frontend || true
+          docker rm backend frontend || true
+
           docker run -d \
             --name backend \
             -p 8080:8080 \
             -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
+            --restart unless-stopped \
             ${{ secrets.DOCKER_USERNAME }}/ecommerce-backend:latest
+
+          docker run -d \
+            --name frontend \
+            -p 3000:80 \
+            --restart unless-stopped \
+            ${{ secrets.DOCKER_USERNAME }}/ecommerce-frontend:latest
+
+          docker image prune -f
           echo "Deploy successful!"
 ```
 
@@ -152,24 +185,11 @@ How to add a Secret: **Repository → Settings → Secrets and variables → Act
 
 Push a small change to the `main` branch and monitor the full pipeline:
 
-```bash
+```yaml
 # Make a change and push
 git add .
 git commit -m "feat: update product list endpoint"
 git push origin main
-```
-
-Watch each step in the **Actions** tab of the GitHub repository:
-
-```text
- Checkout code           ~5s
- Set up JDK 17           ~20s
- Build with Maven        ~60s
- Login to Docker Hub     ~5s
- Build & Push image      ~45s
- Deploy to EC2           ~15s
-─────────────────────────────
-Total pipeline time: ~2.5 minutes
 ```
 
 > **Screenshot:** ![GitHub Actions success](/images/evidence/week-10/03-github-actions-success.png)
@@ -178,16 +198,76 @@ Total pipeline time: ~2.5 minutes
 
 #### Exercise 4: Explore AWS CodePipeline
 
-**GitHub Actions vs AWS CodePipeline comparison:**
+##### 1. Overview of AWS CodePipeline
+
+AWS CodePipeline is a fully managed CI/CD (Continuous Integration / Continuous Deployment) service provided by AWS that automates the process of building, testing, and deploying applications quickly and reliably.
+
+**Pipeline Architecture**
+A pipeline is a workflow consisting of multiple stages and actions.
+**Pipeline**
+Represents the overall workflow that manages the entire CI/CD process from source code to production deployment.
+**Stage**
+Logical phases in the pipeline such as:
+
+- Source
+- Build
+- Deploy
+
+Stages are executed sequentially based on the configured order.
+
+**Action**
+A specific task within a stage, for example:
+
+- Pull source code
+- Build project
+- Deploy Docker container
+
+**Artifact Store (Amazon S3)**
+Used to store source code and build artifacts for transferring data between stages.
+
+###### 2. Main Components of AWS CodePipeline
+
+| Component | Role |
+| :--- | :--- |
+| **Source** | Retrieves source code from GitHub, CodeCommit, or S3 and triggers the pipeline when changes occur |
+| **Build (AWS CodeBuild)** | Builds the project, runs tests, and creates artifacts (JAR files, Docker images, etc.) |
+| **Deploy (AWS CodeDeploy)** | Automatically deploys applications to EC2, ECS, or Lambda |
+| **IAM Role** | Manages permissions and access between AWS services |
+| **CloudWatch** | Monitors logs, build/deployment status, and pipeline metrics |
+
+---
+
+##### 3. Comparison Between GitHub Actions and AWS CodePipeline
 
 | Criteria | GitHub Actions | AWS CodePipeline |
 | :--- | :--- | :--- |
-| Source storage | GitHub repository | AWS (CodeCommit / GitHub / S3) |
-| Cost | Free (2,000 minutes/month on free tier) | Pay per pipeline ($1/pipeline/month) |
-| AWS integration | Requires manual credential configuration | Native, uses IAM Roles directly |
-| Complexity | Simple — YAML lives directly in the repo | Multiple linked services: CodeBuild, CodeDeploy |
-| Best suited for | Personal projects, startups, open source | Enterprise, deep AWS ecosystem integration |
+| **Location** | Workflow is stored inside the GitHub repository | Managed through the AWS Console |
+| **Security** | Uses GitHub Secrets | Uses AWS IAM Roles |
+| **Operation Mechanism** | Event-driven (push, pull request, etc.) | Pipeline orchestration |
+| **AWS Integration** | Requires manual credential configuration | Native integration with AWS services |
+| **Complexity** | Simple and easy to use | More complex but more powerful |
+| **Best For** | Individuals, startups, open-source projects | Enterprises and cloud-native systems |
 
+---
+
+##### 4. Why Use AWS CodePipeline?
+
+- **Automates the entire deployment process:**
+  Reduces manual operations and minimizes deployment errors.
+
+- **Provides better control:**
+  Supports adding a **Manual Approval** step before deploying to production.
+
+- **Deep integration with the AWS ecosystem:**
+  Works seamlessly with IAM, CloudWatch, ECS, EC2, Lambda, and other AWS services.
+
+- **Logging & Auditing:**
+  Keeps a complete history of builds and deployments for monitoring and troubleshooting.
+
+- **Scalability:**
+  Easily extends pipelines for multiple environments such as Development, Staging, and Production.
+
+**Note:** In practice, AWS CodeBuild commonly uses a `buildspec.yml` file to define build steps. This file is similar to GitHub Actions workflow YAML files but focuses specifically on the build process within AWS.
 > **Screenshot:** ![CodePipeline overview](/images/evidence/week-10/05-codepipeline-overview.png)
 
 #### Challenges Encountered

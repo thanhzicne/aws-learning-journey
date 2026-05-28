@@ -92,10 +92,23 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Build with Maven
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Build backend with Maven
       run: |
         cd backend
-        ./mvnw clean package -DskipTests
+        mvn clean package -DskipTests
+
+    - name: Build frontend
+      run: |
+        cd frontend
+        npm install
+        npm run build
+      env:
+        VITE_API_URL: http://${{ secrets.EC2_HOST }}:8080/api
 
     - name: Login to Docker Hub
       uses: docker/login-action@v2
@@ -103,10 +116,18 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_TOKEN }}
 
-    - name: Build & Push Docker image
+    - name: Build and push backend image
       run: |
         docker build -t ${{ secrets.DOCKER_USERNAME }}/ecommerce-backend:latest ./backend
         docker push ${{ secrets.DOCKER_USERNAME }}/ecommerce-backend:latest
+
+    - name: Build and push frontend image
+      run: |
+        docker build \
+          --build-arg VITE_API_URL=http://${{ secrets.EC2_HOST }}:8080/api \
+          -t ${{ secrets.DOCKER_USERNAME }}/ecommerce-frontend:latest \
+          ./frontend
+        docker push ${{ secrets.DOCKER_USERNAME }}/ecommerce-frontend:latest
 
     - name: Deploy to EC2
       uses: appleboy/ssh-action@master
@@ -116,13 +137,25 @@ jobs:
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
           docker pull ${{ secrets.DOCKER_USERNAME }}/ecommerce-backend:latest
-          docker stop backend || true
-          docker rm backend || true
+          docker pull ${{ secrets.DOCKER_USERNAME }}/ecommerce-frontend:latest
+
+          docker stop backend frontend || true
+          docker rm backend frontend || true
+
           docker run -d \
             --name backend \
             -p 8080:8080 \
             -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
+            --restart unless-stopped \
             ${{ secrets.DOCKER_USERNAME }}/ecommerce-backend:latest
+
+          docker run -d \
+            --name frontend \
+            -p 3000:80 \
+            --restart unless-stopped \
+            ${{ secrets.DOCKER_USERNAME }}/ecommerce-frontend:latest
+
+          docker image prune -f
           echo "Deploy successful!"
 ```
 
@@ -152,24 +185,11 @@ Cách thêm Secret: **Repository → Settings → Secrets and variables → Acti
 
 Push một thay đổi nhỏ lên branch `main` và theo dõi toàn bộ pipeline:
 
-```bash
+```yaml
 # Thay đổi code và push
 git add .
 git commit -m "feat: update product list endpoint"
 git push origin main
-```
-
-Quan sát từng bước trên tab **Actions** của GitHub repository:
-
-```text
- Checkout code           ~5s
- Set up JDK 17           ~20s
- Build with Maven        ~60s
- Login to Docker Hub     ~5s
- Build & Push image      ~45s
- Deploy to EC2           ~15s
-─────────────────────────────
-Tổng thời gian pipeline: ~2.5 phút
 ```
 
 > **Screenshot:** ![GitHub Actions success](/images/evidence/week-10/03-github-actions-success.png)
@@ -178,16 +198,68 @@ Tổng thời gian pipeline: ~2.5 phút
 
 #### Bài tập 4: Tìm hiểu thêm AWS CodePipeline
 
-**So sánh GitHub Actions và AWS CodePipeline:**
+##### 1. Tổng quan về AWS CodePipeline
+
+AWS CodePipeline là dịch vụ CI/CD (Continuous Integration / Continuous Deployment) được quản lý hoàn toàn bởi AWS, cho phép tự động hóa quá trình build, test và deploy ứng dụng một cách nhanh chóng và ổn định.
+
+**Kiến trúc Pipeline**
+Pipeline là một quy trình làm việc (*workflow*) bao gồm nhiều giai đoạn (*stages*) và hành động (*actions*).
+**Pipeline**
+Là luồng tổng thể quản lý toàn bộ quy trình CI/CD từ source code đến production.
+**Stage**
+Các giai đoạn logic của pipeline như:
+
+- Source
+- Build
+- Deploy
+
+Các stage chạy tuần tự theo thứ tự cấu hình.
+**Action**
+Một tác vụ cụ thể bên trong stage, ví dụ:
+
+- Pull source code
+- Build project
+- Deploy Docker container
+
+**Artifact Store (Amazon S3)**
+Nơi lưu trữ source code và build artifacts để truyền dữ liệu giữa các stage.
+
+###### 2. Các thành phần chính trong CodePipeline
+
+| Thành phần | Vai trò |
+| :--- | :--- |
+| **Source** | Lấy source code từ GitHub, CodeCommit hoặc S3 và trigger pipeline khi có thay đổi |
+| **Build (AWS CodeBuild)** | Build project, chạy test và tạo artifact (JAR, Docker image...) |
+| **Deploy (AWS CodeDeploy)** | Tự động triển khai ứng dụng lên EC2, ECS hoặc Lambda |
+| **IAM Role** | Quản lý quyền truy cập giữa các dịch vụ AWS |
+| **CloudWatch** | Theo dõi log, trạng thái build/deploy và monitoring pipeline |
+
+###### 3. So sánh GitHub Actions và AWS CodePipeline
 
 | Tiêu chí | GitHub Actions | AWS CodePipeline |
 | :--- | :--- | :--- |
-| Nơi lưu trữ | GitHub repository | AWS (CodeCommit / GitHub / S3) |
-| Chi phí | Miễn phí (2000 phút/tháng với tài khoản free) | Trả theo pipeline ($1/pipeline/tháng) |
-| Tích hợp AWS | Cần cấu hình credentials thủ công | Native, dùng IAM Role trực tiếp |
-| Độ phức tạp | Đơn giản, YAML trực tiếp trong repo | Nhiều service liên kết: CodeBuild, CodeDeploy |
-| Phù hợp | Project cá nhân, startup, open source | Enterprise, tích hợp sâu hệ sinh thái AWS |
+| **Vị trí** | Workflow nằm trong GitHub repository | Quản lý trên AWS Console |
+| **Bảo mật** | Dùng GitHub Secrets | Dùng IAM Role của AWS |
+| **Cơ chế hoạt động** | Event-driven (push, pull request...) | Orchestration pipeline |
+| **Tích hợp AWS** | Cần cấu hình credentials thủ công | Native integration với AWS |
+| **Độ phức tạp** | Đơn giản, dễ dùng | Phức tạp hơn nhưng mạnh mẽ |
+| **Phù hợp** | Cá nhân, startup, open source | Enterprise, hệ thống cloud-native |
 
+##### 4. Tại sao cần sử dụng AWS CodePipeline?
+
+- **Tự động hóa toàn bộ quy trình deploy:**
+  Giảm thao tác thủ công và hạn chế lỗi khi triển khai ứng dụng.
+- **Khả năng kiểm soát cao:**
+  Hỗ trợ thêm bước **Manual Approval** trước khi deploy production.
+- **Tích hợp sâu với hệ sinh thái AWS:**
+  Hoạt động trực tiếp với IAM, CloudWatch, ECS, EC2, Lambda...
+- **Logging & Auditing:**
+  Toàn bộ lịch sử build/deploy được ghi lại để dễ kiểm tra và theo dõi.
+- **Khả năng mở rộng:**
+  Dễ dàng mở rộng pipeline cho nhiều môi trường như Dev, Staging, Production.
+
+**Lưu ý:** Trong thực tế, AWS CodeBuild thường sử dụng file `buildspec.yml` để định nghĩa các bước build.
+File này tương tự workflow YAML của GitHub Actions nhưng tập trung riêng cho quá trình build trong AWS.
 > **Screenshot:** ![CodePipeline overview](/images/evidence/week-10/05-codepipeline-overview.png)
 
 #### Khó khăn gặp phải
