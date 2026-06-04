@@ -20,7 +20,7 @@ pre: " <b> 1.12. </b> "
 | --- | --- | --- | --- | --- |
 | Mon | Learn CloudFront and Route 53 — finalize the architecture with CDN and a custom domain, enable HTTPS with ACM | 06/07/2026 | 06/07/2026 | [Content Delivery with Amazon CloudFront](https://000094.awsstudygroup.com), [Hybrid DNS Management with Amazon Route 53](https://000010.awsstudygroup.com), [Custom Domains and SSL for Serverless Applications](https://000082.awsstudygroup.com) |
 | Tue | Final end-to-end system testing: product CRUD, S3 image upload, CI/CD pipeline, CloudWatch alerts | 07/07/2026 | 07/07/2026 | [Deploy Application on Docker](https://000015.awsstudygroup.com) |
-| Wed | Complete README, Deployment Guide, Architecture Diagram (updated with CloudFront & Route 53). Record demo video (3–5 min): architecture → frontend demo → AWS Console → CI/CD pipeline | 08/07/2026 | 08/07/2026 | [Static Website Hosting with Amazon S3](https://000057.awsstudygroup.com) |
+| Wed | Complete Deployment Guide, Architecture Diagram (updated with CloudFront & Route 53). Record demo video (3–5 min): architecture → frontend demo → AWS Console → CI/CD pipeline | 08/07/2026 | 08/07/2026 | [Static Website Hosting with Amazon S3](https://000057.awsstudygroup.com) |
 | Thu | Clean up unnecessary AWS resources. Final cost review with Cost Explorer | 09/07/2026 | 09/07/2026 | [Cost and Usage Management](https://000064.awsstudygroup.com) |
 | Fri | Submit project: GitHub repo, live app link. Write Week 12 worklog and finalize internship report | 10/07/2026 | 10/07/2026 | |
 
@@ -40,17 +40,17 @@ Summary of all knowledge accumulated over 12 weeks of AWS study:
 
 ---
 
-#### Exercise 1: CloudFront & Route 53 — Finalizing the Architecture
+#### Exercise : CloudFront & Route 53
 
-##### Why CloudFront & Route 53?
+##### Why Do We Need CloudFront & Route 53?
 
-After 11 weeks, the system still had 3 unresolved issues:
+After 11 weeks, the system still has 3 unresolved issues:
 
 | Problem | Symptom | Solution |
 | :--- | :--- | :--- |
 | Ugly, hard-to-remember URL | `http://15.135.21.123:8080/api/products` | Route 53 + real domain |
-| No HTTPS | Browser warns "Not Secure" | CloudFront + ACM certificate |
-| Slow loading for distant users | Users in Vietnam connecting directly to Sydney | CloudFront CDN caches at the nearest edge server |
+| No HTTPS | Browser shows "Not Secure" warning | CloudFront + ACM certificate |
+| Slow load for distant users | Users in Vietnam connect directly to Sydney | CloudFront CDN caches at nearest edge location |
 
 ##### What is CloudFront?
 
@@ -58,136 +58,174 @@ CloudFront is AWS's CDN (Content Delivery Network) — with 400+ edge servers wo
 
 CloudFront has 2 types of origins in this project:
 
-| Origin | Path | Used For |
+| Origin | Path | Used for |
 | :--- | :--- | :--- |
-| S3 frontend bucket | `/*` | Serves the React app (HTML/CSS/JS) |
-| EC2 IP:8080 | `/api/*` | Proxies API calls, adds HTTPS |
+| S3 frontend bucket | `/*` | Serving the React app (HTML/CSS/JS) |
+| EC2 IP:8080 | `/api/*` | Proxying API calls, adding HTTPS |
 
 ##### What is Route 53?
 
-Route 53 is AWS's DNS service — it translates a domain (`myapp.com`) into the CloudFront address.
-
-**Without Route 53:** <https://d1234abc.cloudfront.net>   ← default URL, ugly
-
-**With Route 53:** <https://myapp.com> → Route 53 → CloudFront → S3 / EC2
+Route 53 is AWS's DNS service — it converts a domain name (`myapp.com`) into a CloudFront address.
+**Without Route 53:** `https://d1234abc.cloudfront.net` ← default URL, ugly
+**With Route 53:** `https://myapp.com` → Route 53 → CloudFront → S3 / EC2
+> **Note:** In this lab, Route 53 is studied at a theoretical level only since we do not own a real domain. The hands-on steps below will use the default CloudFront URL instead.
 
 ##### What is ACM (AWS Certificate Manager)?
 
 ACM issues **free** SSL certificates to enable HTTPS. CloudFront requires the certificate to be created in **region us-east-1** (N. Virginia), not ap-southeast-2.
+HTTP  → no encryption → data can be read in transit
+HTTPS → TLS encryption → secure, browser shows no warning
+> **Note:** ACM can only validate a certificate when you own the domain. In this lab, the ACM step is skipped. We use the default HTTPS provided by CloudFront via the `*.cloudfront.net` URL.
 
-HTTP  → unencrypted → data can be read in transit
-HTTPS → TLS encrypted → secure, browser shows no warnings
+---
 
-##### Step 1: Create an SSL Certificate in ACM
+##### Step 1: Create a CloudFront Distribution
 
-> Must be created in region **us-east-1 (N. Virginia)** — this is the most common mistake when using CloudFront.
-
-- Go to **ACM Console** (switch region to us-east-1) → **Request certificate** → **Request a public certificate**
-- Domain name: `myapp.com` and `*.myapp.com` (wildcard for future subdomains)
-- Validation method: **DNS validation**
-- Click **Request** → copy the generated CNAME record → add it to Route 53
-- Wait for status to change to **Issued** (usually 1–5 minutes)
-
-##### Step 2: Create a CloudFront Distribution
-
-Go to **CloudFront Console** → **Create distribution**:
-
-*Origin 1 — S3 frontend:*
+Go to **CloudFront Console** → **Create distribution**
+*Origin — S3 frontend:*
 
 | Parameter | Value |
 | :--- | :--- |
-| Origin domain | `simple-ecommerce-fe-yourname.s3.ap-southeast-2.amazonaws.com` |
-| Origin access | Origin Access Control (OAC) — more secure than a public URL |
+| Origin domain | `simple-ecommerce-phamducthanh.s3.ap-southeast-2.amazonaws.com` |
+| Origin access | **Origin Access Control (OAC)** |
 | Viewer protocol policy | Redirect HTTP to HTTPS |
 | Default root object | `index.html` |
 
-*Origin 2 — EC2 backend:*
+*Custom error responses (so React Router works on page refresh):*
+
+| HTTP error code | Response page path | HTTP response code |
+| :--- | :--- | :--- |
+| 403 | `/index.html` | 200 |
+| 404 | `/index.html` | 200 |
+
+> **Screenshot:** ![Create a CloudFront Distribution](/images/evidence/week-12/01-Create-CloudFront-Distribution.png)
+
+##### Step 2: Update the S3 Bucket Policy
+
+After creating the distribution, update the Bucket Policy so that **only CloudFront** can read from S3 — blocking direct public access:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowCloudFrontServicePrincipal",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "cloudfront.amazonaws.com"
+      },
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::simple-ecommerce-phamducthanh/*",
+      "Condition": {
+        "ArnLike": {
+          "AWS:SourceArn": "arn:aws:cloudfront::551326095934:distribution/E4UZ9OCEJUVRN"
+        }
+      }
+    }
+  ]
+}
+```
+
+> **Screenshot:** ![Update S3 Bucket Policy](/images/evidence/week-12/02-S3-Bucket-Policy.png)
+
+##### Step 3: Update Frontend to Use the CloudFront URL
+
+The frontend should call the API through CloudFront instead of connecting directly to the EC2 instance. Update the `frontend/.env` file:
+
+```env
+VITE_API_URL=https://d4k3yvu64phif.cloudfront.net/api
+```
+
+For GitHub Actions, update `deploy.yml` by removing port `:8080` and switching to HTTPS:
+
+```yaml
+# Before
+--build-arg VITE_API_URL=http://${{ secrets.EC2_HOST }}:8080/api
+
+# After
+--build-arg VITE_API_URL=https://${{ secrets.EC2_HOST }}/api
+```
+
+Also update the `EC2_HOST` secret in GitHub:
+**GitHub → Settings → Secrets and variables → Actions**
+
+```text
+EC2_HOST = d4k3yvu64phif.cloudfront.net
+```
+
+> **Note:** RDS will continue to operate normally. CloudFront sits in front of the EC2 instance and does not affect the internal connection between EC2 and RDS.
+
+##### Step 4: Understanding Route 53 (Theory Only)
+
+> This step is **not practiced hands-on** because we do not own a real domain. It is documented here to understand the full workflow when a real domain is available.
+
+If a real domain were available, the steps would be as follows:
+**4.1 Create a Hosted Zone**
+
+Route 53 → Hosted zones → Create hosted zone
+→ Domain name: myapp.com
+→ Type: Public hosted zone
+→ Create
+**4.2 Create an A Record Pointing to CloudFront**
 
 | Parameter | Value |
 | :--- | :--- |
-| Origin domain | `http://<EC2-IP>:8080` |
-| Protocol | HTTP only |
-
-*Behavior for API (`/api/*`):*
-
-| Parameter | Value |
-| :--- | :--- |
-| Path pattern | `/api/*` |
-| Origin | EC2 |
-| Cache policy | **CachingDisabled** — API responses must never be cached; always forward to EC2 |
-| Allowed HTTP methods | GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE |
-
-*Default behavior (`/*`):*
-
-| Parameter | Value |
-| :--- | :--- |
-| Path pattern | `/*` (default) |
-| Origin | S3 |
-| Cache policy | **CachingOptimized** — cache HTML/CSS/JS at the edge |
-
-*General settings:*
-
-- Alternate domain name: `myapp.com`
-- SSL Certificate: select the certificate just created in ACM (us-east-1)
-- Custom error response: HTTP 403 → `/index.html` → HTTP 200 *(so React Router works correctly on page refresh)*
-
-##### Step 3: Create a Route 53 Hosted Zone
-
-- **Route 53 Console** → **Hosted zones** → **Create hosted zone**
-- Domain name: `myapp.com` → **Create**
-- Copy the 4 NS (Name Server) records → update them at your domain registrar (if purchased elsewhere, e.g. Namecheap, GoDaddy)
-
-##### Step 4: Create an A Record Pointing to CloudFront
-
-Inside the `myapp.com` hosted zone → **Create record**:
-
-| Parameter | Value |
-| :--- | :--- |
-| Record name | (leave blank — root domain) |
+| Record name | *(leave blank — root domain)* |
 | Record type | A |
 | Alias | Yes |
 | Route traffic to | Alias to CloudFront distribution |
-| Distribution | select the distribution just created |
 
-##### Step 5: Update the React Frontend and Deploy
-
-Now that a domain exists, update `API_URL` in React:
-
-```javascript
-// services/productService.js — before
-const API_URL = 'http://15.135.21.123:8080/api';
-
-// After CloudFront + Route 53
-const API_URL = 'https://myapp.com/api';
-```
-
-Rebuild and deploy to S3:
+**4.3 Traffic flow with Route 53:**
 
 ```bash
-# Build React app
-npm run build
-
-# Sync to S3
-aws s3 sync dist/ s3://simple-ecommerce-fe-yourname/ --delete
-
-# Invalidate CloudFront cache so users see the new version immediately
-aws cloudfront create-invalidation \
-  --distribution-id <DISTRIBUTION-ID> \
-  --paths "/*"
+User types myapp.com
+    ↓
+Route 53 (DNS lookup)
+    ↓
+CloudFront (Edge server in Singapore)
+    ↓
+S3 Sydney (Origin)
 ```
 
-##### Results After Exercise 1
+**4.4 Route 53 Routing Policy types:**
+
+| Policy | When to use |
+| :--- | :--- |
+| Simple | Single resource only |
+| Weighted | A/B testing, split traffic by percentage |
+| Latency | Multiple regions, auto-route to nearest region |
+| Failover | Primary + Backup (High Availability) |
+| Geolocation | Route by country or geographic region |
+
+##### Step 5: Test the CloudFront URL
+
+Once the distribution status changes to **Enabled**, test it:
+
+```bash
+# Test with curl
+curl -I https://d4k3yvu64phif.cloudfront.net
+ 
+# Expected result
+HTTP/2 200
+x-cache: Hit from cloudfront   ← cache is working
+```
+
+Or open in browser: `https://d4k3yvu64phif.cloudfront.net`
+
+> **Screenshot:** ![Test CloudFront URL](/images/evidence/week-12/03-Test-CloudFront.png)
+
+---
+
+##### Results After Exercise
 
 | Before | After |
 | :--- | :--- |
-| `http://15.135.21.123:8080/api` | `https://myapp.com/api` |
-| `http://simple-ecommerce-fe.s3-website.amazonaws.com` | `https://myapp.com` |
-| ~200ms load time from Vietnam | ~30ms thanks to Singapore edge server |
-| Unencrypted HTTP | HTTPS with free SSL certificate |
+| `http://simple-ecommerce-phamducthanh.s3-website.amazonaws.com` | `https://d4k3yvu64phif.cloudfront.net` |
+| Unencrypted HTTP | **HTTPS** via default CloudFront certificate |
+| ~200ms load time from Vietnam | ~30ms load time via Singapore edge server |
+| S3 publicly accessible | S3 private — accessible by CloudFront only |
 
-> **Screenshot:** ![CloudFront distribution](/images/evidence/week-12/01-cloudfront-distribution.png)
->
-> **Screenshot:** ![Route 53 records](/images/evidence/week-12/02-route53-records.png)
+> **Screenshot:** ![CloudFront Distribution Enabled](/images/evidence/week-12/04-CloudFront-Enabled.png)
 
 ---
 
@@ -220,12 +258,18 @@ aws cloudfront create-invalidation \
 
 | Problem | Solution |
 | :--- | :--- |
-| ACM certificate stuck in pending state | Ensured the correct CNAME record was added to Route 53 — usually resolves within 1–5 minutes |
-| CloudFront returning 403 when accessing S3 | Configured OAC and updated the Bucket Policy to allow CloudFront to read from S3 |
-| React Router returning 404 on page refresh | Added custom error response: HTTP 403/404 → redirect to `/index.html` with HTTP 200 |
-| API CORS error after switching to the new domain | Updated `@CrossOrigin(origins = "https://myapp.com")` in the Spring Boot controller |
-| CloudFront serving stale content after deployment | Ran `aws cloudfront create-invalidation --paths "/*"` after each React deployment |
-| App works locally but fails on EC2 | Checked Security Group port 8080 and verified DB_URL environment variable on EC2 |
-| Demo video required multiple retakes due to forgetting the script | Wrote a detailed script for each section and did a dry run before the real recording |
-| `.env` file accidentally pushed to GitHub repo | Added `.env` to `.gitignore` and used `git rm --cached .env` to remove it from history |
-| Forgot to clean up AWS resources after submission | Used AWS Cost Explorer one week later to verify no further charges were incurred |
+| Accessing the wrong CloudFront domain caused `DNS_PROBE_FINISHED_NXDOMAIN` | Checked the actual `Distribution domain name` in the CloudFront Console and updated it in `frontend/.env`, `.env.example`, and GitHub Actions |
+| CloudFront domain was not available immediately after creation | Waited until the distribution status became `Enabled/Deployed`, then tested again using the browser and `curl -I` |
+| CloudFront returned `AccessDenied` when opening the main website | Uploaded the React build output from `frontend/dist` to S3 and ensured the bucket contained `index.html` and `assets/` |
+| GitHub Actions built the frontend but CloudFront still showed no website | Added an `aws s3 sync frontend/dist s3://simple-ecommerce-phamducthanh` step to deploy the frontend to S3 |
+| CloudFront still showed old content after deployment | Added a CloudFront invalidation step using `aws cloudfront create-invalidation --distribution-id E3O2ME4OPGOUZ9 --paths "/*"` |
+| Images uploaded to S3 did not display when testing locally | Since the S3 bucket is private and only CloudFront can read it through OAC, added `VITE_ASSET_BASE_URL` and converted S3 image URLs to CloudFront URLs before rendering |
+| API requests through CloudFront returned `502` | The backend on EC2 runs on HTTP port `8080`, so the CloudFront origin had to be configured with `Protocol: HTTP only` and `HTTP port: 8080` |
+| API worked directly through EC2 but failed through CloudFront | Checked that the `/api/*` behavior pointed to the correct EC2 origin and used `CachingDisabled` with the `AllViewer` origin request policy |
+| API actions such as create, update, delete, and upload could fail if only `GET, HEAD` were allowed | Configured the `/api/*` behavior to allow `GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE` |
+| Local frontend showed `Network Error` | Checked `VITE_API_URL`, tested the backend directly with `curl http://52.65.5.156:8080/api/products`, then restarted the Vite dev server |
+| Updated `.env` but the local frontend still used the old value | Restarted the Vite dev server because Vite only loads `.env` variables when the server starts |
+| VS Code showed `Context access might be invalid` for AWS secrets | Treated it as an editor warning and verified that `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` were correctly added to GitHub Actions Secrets |
+| Did not know where to get `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` | Created an IAM user for GitHub Actions, generated an access key in the Security credentials tab, and saved the values as GitHub repository secrets |
+| Risk of deleting uploaded product images when syncing frontend files to S3 | Avoided using `aws s3 sync ... --delete` because the same bucket also stores uploaded images in the `images/` folder |
+| README was outdated after adding CloudFront | Rewrote the README to describe the new architecture: `CloudFront -> S3` for the frontend and `/api/* -> EC2 backend` |
