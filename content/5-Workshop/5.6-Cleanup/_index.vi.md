@@ -1,5 +1,5 @@
 ---
-title: "Cleanup"
+title: "5.6 Cleanup"
 date: 2026-05-14
 weight: 6
 chapter: false

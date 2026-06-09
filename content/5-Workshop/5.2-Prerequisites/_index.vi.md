@@ -1,5 +1,5 @@
 ---
-title: "Điều kiện tiên quyết"
+title: "5.2 Điều kiện tiên quyết"
 date: 2026-05-14
 weight: 2
 chapter: false

@@ -1,5 +1,5 @@
 ---
-title: "Deployment steps"
+title: "5.4 Deployment steps"
 date: 2026-05-14
 weight: 4
 chapter: false

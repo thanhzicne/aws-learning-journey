@@ -1,5 +1,5 @@
 ---
-title: "Workshop overview"
+title: "5.1 Workshop overview"
 date: 2026-05-14
 weight: 1
 chapter: false

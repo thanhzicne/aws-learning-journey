@@ -1,5 +1,5 @@
 ---
-title: "Tổng quan workshop"
+title: "5.1 Tổng quan workshop"
 date: 2026-05-14
 weight: 1
 chapter: false

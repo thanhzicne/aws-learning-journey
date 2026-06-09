@@ -1,16 +1,29 @@
 ---
 title: "Các events đã tham gia"
-date: 2026-05-14
+date: 2024-01-01
 weight: 4
 chapter: false
 pre: " <b> 4. </b> "
 ---
 
-## Events Participated
+Trong quá trình thực tập, em đã tham gia 2 events, với mỗi event là một trải nghiệm đáng nhớ với những kiến thức mới, hay và bổ ích, cùng với đó là nhứng món quà và những khoảnh khắc rất tuyệt vời.
 
-| Sự kiện | Thời gian | Địa điểm | Vai trò | Nội dung chính | Bài học / đóng góp |
-| --- | --- | --- | --- | --- | --- |
-| FCJ onboarding | 17/04/2026 | AWS Study Group / Văn phòng | Người tham gia | Quy định chương trình, roadmap học tập, hình thức báo cáo. | Nắm được yêu cầu báo cáo cuối khóa và kỷ luật cập nhật theo tuần. |
-| AWS learning sharing session | Cần bổ sung | Online / Văn phòng | Người tham gia | Chia sẻ về AWS services, chi phí, bảo mật và ý tưởng project. | Lấy ý tưởng cho project e-commerce và cấu trúc workshop. |
+## [Event 1](4.1-Event1/)
 
-Có thể bổ sung thêm ảnh minh chứng hoặc link sự kiện khi có.
+&emsp;**Tên sự kiện:** FCAJ Community Day.
+
+&emsp;**Thời gian:** 9:00 – 12:00 ngày 23/05/2026.
+
+&emsp;**Địa điểm:** Tầng 26, tòa nhà Bitexco, số 02 đường Hải Triều, phường Sài Gòn, thành phố Hồ Chí Minh.
+
+&emsp;**Vai trò trong sự kiện:** Người tham dự.
+
+## [Event 2](4.2-Event2/)
+
+&emsp;**Tên sự kiện:**
+
+&emsp;**Thời gian:**
+
+&emsp;**Địa điểm:**
+
+&emsp;**Vai trò trong sự kiện:**

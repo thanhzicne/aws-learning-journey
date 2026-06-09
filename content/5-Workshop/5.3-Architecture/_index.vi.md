@@ -1,5 +1,5 @@
 ---
-title: "Kiến trúc"
+title: "5.3 Kiến trúc"
 date: 2026-05-14
 weight: 3
 chapter: false

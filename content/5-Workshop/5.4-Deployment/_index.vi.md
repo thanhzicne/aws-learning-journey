@@ -1,5 +1,5 @@
 ---
-title: "Các bước triển khai"
+title: "5.4 Các bước triển khai"
 date: 2026-05-14
 weight: 4
 chapter: false

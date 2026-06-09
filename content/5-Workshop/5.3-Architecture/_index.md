@@ -1,5 +1,5 @@
 ---
-title: "Architecture"
+title: "5.3 Architecture"
 date: 2026-05-14
 weight: 3
 chapter: false
