@@ -5,27 +5,41 @@ weight: 1
 chapter: false
 pre: " <b> 3.2. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your report, including this warning.
-{{% /notice %}}
 
-## SESSION POLICIES IN AMAZON EKS POD IDENTITY
+## [AWS Security] Serverless Security Does Not Rely on a Single Layer
 
-Amazon EKS Pod Identity has recently added the session policies feature, allowing you to narrow IAM permissions flexibly and precisely for each pod without needing to create many separate IAM roles. This is an important step forward that helps apply the principle of least privilege more effectively in large-scale Kubernetes environments.
+Serverless reduces server management, but it doesn't mean the system is automatically secure. With serverless microservices, every API, Lambda function, secret, or database can become a vulnerability if misconfigured.
 
-Key points to know:
+Therefore, security should not rely solely on a single layer like a WAF or an API Gateway. The architecture should adopt a defense-in-depth approach, meaning multiple successive layers of protection so that if one layer is breached, the remaining layers still help mitigate the damage.
 
-* A session policy is an inline IAM policy specified when creating or updating a Pod Identity association.
-* Effective permissions = intersection between the IAM role permissions and the session policy → the session policy can only narrow permissions, not expand them.
-* Helps avoid over-permissioning when reusing a single IAM role for multiple workloads with different needs.
-* Supports both same-account and cross-account (via IAM role chaining).
-* Significantly reduces the number of IAM roles that need to be managed, helping avoid hitting IAM quota limits in large clusters.
-* Easily configured through the AWS Management Console, AWS CLI, or AWS SDK when creating an association between a Kubernetes ServiceAccount and an IAM role.
+7 Key Protection Layers in AWS Architecture:
 
-This feature is especially useful when you have many applications running on the same IAM role but need different permission restrictions (for example: one pod only reads a specific S3 bucket, another pod only calls certain APIs).
+Edge Protection: Protect inbound traffic using Amazon CloudFront, AWS WAF, and AWS Shield.
 
-...Image...
+Identity Protection: Authenticate users and control access using Amazon Cognito.
 
-...Link...
+API Protection: Protect APIs, validate tokens, rate-limit requests, and encrypt connections using Amazon API Gateway.
 
-...Guide...
+Network Isolation: Isolate sensitive resources using Amazon VPC, Security Groups, Network ACLs, and VPC Endpoints.
+
+Compute Security: Protect Lambda functions using IAM least privilege, AWS KMS, resource-based policies, and code signing.
+
+Secrets Protection: Manage credentials, API keys, and sensitive information using AWS Secrets Manager.
+
+Data Protection: Protect data using DynamoDB encryption, access controls, and backups.
+
+Continuous Monitoring
+In addition to the 7 layers above, the system requires continuous monitoring using Amazon GuardDuty, AWS CloudTrail, Amazon CloudWatch, AWS Security Hub, and Amazon Bedrock to detect anomalies, track behaviors, and support security analysis.
+
+The Beauty of It
+This architecture does not depend on a single layer of protection. If the WAF is bypassed, the system still has API Gateway, Cognito, IAM, Secrets Manager, and backend monitoring in place to reduce the blast radius (impact scope).
+
+Conclusion
+Serverless helps reduce server management overhead, but it doesn't eliminate security responsibilities. For a production system, security must be designed from the ground up—covering traffic, authentication, APIs, networking, Lambda, secrets, data, all the way to monitoring.
+
+**References:** <https://aws.amazon.com/vi/blogs/security/building-an-ai-powered-defense-in-depth-security-architecture-for-serverless-microservices/>
+
+**Image:**
+> ![poot2](/images/blogs/blog2/post2.png)
+
+**Link:** <https://www.facebook.com/groups/awsstudygroupfcj/permalink/2189122901852670/?rdid=Lp3uW8qDC4gJGOC1#>
