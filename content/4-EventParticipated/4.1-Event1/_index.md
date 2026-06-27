@@ -15,6 +15,8 @@ pre: " <b> 4.1. </b> "
 
 One of the most distinctive aspects of the event was its **"by the community, for the community"** spirit. The speakers were not distant experts but people who had experienced similar learning journeys, making the sessions more relatable, practical, and inspiring.
 
+---
+
 ### Objectives of the Event
 
 * Connect members of the First Cloud Journey community who are learning and practicing AWS in Vietnam.
@@ -22,6 +24,8 @@ One of the most distinctive aspects of the event was its **"by the community, fo
 * Inspire and guide students and young developers pursuing careers in cloud computing.
 * Promote peer-to-peer learning where knowledge is shared collaboratively rather than through traditional top-down teaching.
 * Strengthen and expand the AWS community ecosystem in Vietnam.
+
+---
 
 ### Event Information
 
@@ -33,6 +37,8 @@ One of the most distinctive aspects of the event was its **"by the community, fo
 | **Number of Participants** | Approximately 399 attendees |
 | **Time** | 09:00 – 12:00, May 23, 2026 |
 | **Language** | Vietnamese |
+
+---
 
 ### Session Schedule
 

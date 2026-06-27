@@ -14,6 +14,8 @@ pre: " <b> 4.1. </b> "
 
 Điểm đặc biệt của sự kiện nằm ở tinh thần **"by the community, for the community"**: người nói chuyện không phải các chuyên gia xa vời, mà là những người đang cùng hành trình với người nghe – điều đó làm cho nội dung gần gũi, thực tế và có chiều sâu hơn nhiều.
 
+---
+
 ### Mục Đích Của Sự Kiện
 
 - Kết nối cộng đồng First Cloud Journey – những người đang học và thực hành AWS tại Việt Nam
@@ -21,6 +23,8 @@ pre: " <b> 4.1. </b> "
 - Truyền cảm hứng và định hướng nghề nghiệp cho sinh viên và lập trình viên trẻ đang bước vào lĩnh vực cloud
 - Tạo không gian học hỏi peer-to-peer, nơi kiến thức được chia sẻ ngang hàng thay vì từ trên xuống
 - Xây dựng và củng cố hệ sinh thái cộng đồng AWS Việt Nam ngày càng lớn mạnh
+
+---
 
 ### Thông Tin Sự Kiện
 
@@ -32,6 +36,8 @@ pre: " <b> 4.1. </b> "
 | **Số lượng tham dự** | ~399 người |
 | **Thời gian** | 9:00 – 12:00 ngày 23/05/2026 |
 | **Ngôn ngữ** | Tiếng Việt |
+
+---
 
 ### Danh Sách Các Session
 
