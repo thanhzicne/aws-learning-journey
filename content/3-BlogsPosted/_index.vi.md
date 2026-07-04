@@ -14,6 +14,6 @@ Bài viết cập nhật bước đi đột phá của AWS khi chuyển đổi t
 
 Bài viết giải quyết lầm tưởng phổ biến: "Serverless là tự động an toàn". Tác giả đi sâu phân tích kiến trúc bảo vệ chiều sâu với 7 lớp phòng thủ độc lập (từ Edge, Identity, API đến Data và Monitoring). Qua đó, người đọc sẽ hiểu cách thiết kế một hệ thống vi dịch vụ (microservices) kiên cố, đảm bảo rằng nếu một chốt chặn bị xuyên thủng, các rào chắn phía sau vẫn đứng vững để thu hẹp tối đa rủi ro thiệt hại.
 
-## [Blog 3 - ...](3.3-Blog3/)
+## [Blog 3 - KHÁM PHÁ SỨC MẠNH CỦA KIẾN TRÚC ĐA ĐẶC VỤ (MULTI-AGENT) TRONG KIỂM THỬ BẢO MẬT](3.3-Blog3/)
 
-Blog này giới thiệu Amazon EKS Pod Identity vừa bổ sung tính năng session policies, cho phép bạn thu hẹp quyền IAM một cách linh hoạt và chính xác cho từng pod mà không cần tạo thêm nhiều IAM roles riêng biệt. Đây là bước tiến quan trọng giúp áp dụng nguyên tắc least privilege hiệu quả hơn trong môi trường Kubernetes quy mô lớn.
+Blog này giới thiệu kiến trúc Multi-Agent (đa đặc vụ) như một bước tiến quan trọng giúp khắc phục các hạn chế của AI Agent truyền thống — vốn khó lưu giữ thông tin lâu dài và cần giám sát liên tục từ con người. Lấy ví dụ từ AWS Security Agent, bài viết chỉ ra bốn lợi ích chính của kiến trúc này trong lĩnh vực kiểm thử bảo mật: khả năng hoạt động tự chủ, suy luận phức tạp trong thời gian dài, tối ưu hiệu quả nhờ phân công chuyên biệt giữa các agent, khả năng phát hiện các lỗ hổng dạng chuỗi mà công cụ quét truyền thống thường bỏ sót và tiết kiệm đáng kể thời gian, nguồn lực so với pentest thủ công. Bài viết kết luận rằng Multi-Agent không chỉ là xu hướng cho ngành an ninh mạng mà còn có tiềm năng ứng dụng rộng rãi trong nghiên cứu khoa học và phát triển phần mềm.
