@@ -21,7 +21,7 @@ pre: " <b> 1.10. </b> "
 | Tue | Write a GitHub Actions workflow: build JAR (Maven), build and push Docker image to Docker Hub | 23/06/2026 | 23/06/2026 | [Deploying CI/CD with ECS Container – CI/CD with GitHub Actions](https://000017.awsstudygroup.com/4-cicd-github/) |
 | Wed | **Practice CI/CD:** Add an SSH deploy step to EC2. Configure GitHub Secrets for the full pipeline | 24/06/2026 | 24/06/2026 | [Deploying CI/CD with ECS Container – CI/CD with GitHub Actions](https://000017.awsstudygroup.com/4-cicd-github/2-new-project-push-code/) |
 | Thu | Test the pipeline end-to-end: push code → trigger workflow → new container running on EC2 | 25/06/2026 | 25/06/2026 | [Deploying CI/CD with ECS Container – Check Results](https://000017.awsstudygroup.com/4-cicd-github/4-result/) |
-| Fri | Review, explore AWS CodePipeline, write worklog report, plan Week 11 | 26/06/2026 | 26/06/2026 | [Deploy applications to EC2 with AWS CodePipeline](https://000023.awsstudygroup.com) |
+| Fri | Review, explore AWS CodePipeline. Write worklog report. Continuing to complete the group project and writing up what was learned after attending the FCAJ Community Day event. Plan Week 11 | 26/06/2026 | 26/06/2026 | [Deploy applications to EC2 with AWS CodePipeline](https://000023.awsstudygroup.com) |
 
 ### Week 10 Results
 

@@ -21,7 +21,7 @@ pre: " <b> 1.11. </b> "
 | 3 | Security Audit IAM: kiểm tra root user, MFA, access key rotation, Least Privilege Principle | 30/06/2026 | 30/06/2026 | [Security Compliance with AWS Security Hub](https://000018.awsstudygroup.com) |
 | 4 | Thực hành Security: Audit Security Groups (SSH, RDS, ports). Audit S3 (public access, versioning, lifecycle) | 01/07/2026 | 01/07/2026 | [S3 Security Best Practices](https://000069.awsstudygroup.com) |
 | 5 | Vẽ Architecture Diagram bằng draw.io. Xác định đầy đủ các thành phần: VPC, Subnets, EC2, RDS, S3, CloudWatch, IAM | 02/07/2026 | 02/07/2026 | [Cost and Usage Management](https://000064.awsstudygroup.com) |
-| 6 | Ôn tập, viết báo cáo worklog, lên kế hoạch tuần 12 | 03/07/2026 | 03/07/2026 | |
+| 6 | Ôn tập, viết báo cáo worklog. Tiếp tục hoàn thiện và test lại từng chức năng dự án nhóm, viết Propoasl, Workshop dự án. Lên kế hoạch tuần 12 | 03/07/2026 | 03/07/2026 | |
 
 ### Kết quả đạt được tuần 11
 

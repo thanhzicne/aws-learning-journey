@@ -21,7 +21,7 @@ pre: " <b> 1.9. </b> "
 | Tue | Write Dockerfile for Spring Boot backend. Build and test the backend container locally | 16/06/2026 | 16/06/2026 | [Deploy Application on Docker – Deploy on Local](https://000015.awsstudygroup.com/2-deploy-local/) |
 | Wed | **Practice Docker:** Write a multi-stage Dockerfile for the React frontend (Nginx). Configure `docker-compose.yml` for the full stack | 17/06/2026 | 17/06/2026 | [Deploy Application on Docker – Docker Compose](https://000015.awsstudygroup.com/7-docker-compose/) |
 | Thu | Push images to Docker Hub. Configure EC2 to pull and run containers from Docker Hub | 18/06/2026 | 18/06/2026 | [Deploy Application on Docker – Push Image](https://000015.awsstudygroup.com/8-push-image/2-use-docker-hub/) |
-| Fri | Review, test the full stack on EC2, write worklog report, plan Week 10 | 19/06/2026 | 19/06/2026 | [Deploy Application on Docker – Configure EC2](https://000015.awsstudygroup.com/5-configure-ec2/) |
+| Fri | Review, test the full stack on EC2, write worklog report. Selecting the group project topic and drawing the project architecture diagram using AWS services. Plan Week 10 | 19/06/2026 | 19/06/2026 | [Deploy Application on Docker – Configure EC2](https://000015.awsstudygroup.com/5-configure-ec2/) |
 
 ### Week 9 Results
 

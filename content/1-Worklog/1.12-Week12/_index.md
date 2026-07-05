@@ -22,7 +22,7 @@ pre: " <b> 1.12. </b> "
 | Tue | Final end-to-end system testing: product CRUD, S3 image upload, CI/CD pipeline, CloudWatch alerts | 07/07/2026 | 07/07/2026 | [Deploy Application on Docker](https://000015.awsstudygroup.com) |
 | Wed | Complete Deployment Guide, Architecture Diagram (updated with CloudFront & Route 53). Record demo video (3–5 min): architecture → frontend demo → AWS Console → CI/CD pipeline | 08/07/2026 | 08/07/2026 | [Static Website Hosting with Amazon S3](https://000057.awsstudygroup.com) |
 | Thu | Clean up unnecessary AWS resources. Final cost review with Cost Explorer | 09/07/2026 | 09/07/2026 | [Cost and Usage Management](https://000064.awsstudygroup.com) |
-| Fri | Submit project: GitHub repo, live app link. Write Week 12 worklog and finalize internship report | 10/07/2026 | 10/07/2026 | |
+| Fri | Completing and writing the group project Workshop. Finalizing the internship report | 10/07/2026 | 10/07/2026 | |
 
 ### Week 12 Outcomes
 

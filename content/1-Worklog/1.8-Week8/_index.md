@@ -21,7 +21,7 @@ pre: " <b> 1.8. </b> "
 | Tue | Connect backend API (Axios), display product list with S3 images | 09/06/2026 | 09/06/2026 | [Frontend Development for Serverless APIs](https://000079.awsstudygroup.com) |
 | Wed | **Practice Frontend:** Implement add/edit/delete product pages, handle image upload | 10/06/2026 | 10/06/2026 | [Frontend Integration with API Gateway](https://000135.awsstudygroup.com) |
 | Thu | Configure CORS on backend, handle errors and test the full flow | 11/06/2026 | 11/06/2026 | [Frontend Development for Serverless APIs – Config CORS](https://000079.awsstudygroup.com/4-config-api-gw/4-2-setting-and-cors/) |
-| Fri | Build & deploy frontend to S3 Static Hosting. Review, write worklog report, plan Week 9 | 12/06/2026 | 12/06/2026 | [Static Website Hosting with Amazon S3](https://000057.awsstudygroup.com) |
+| Fri | Build & deploy frontend to S3 Static Hosting. Review, write worklog report. Writing up what was learned after attending the FCAJ Community Day event, and studying AWS blog posts. Plan Week 9 | 12/06/2026 | 12/06/2026 | [Static Website Hosting with Amazon S3](https://000057.awsstudygroup.com) |
 
 ### Week 8 Results
 

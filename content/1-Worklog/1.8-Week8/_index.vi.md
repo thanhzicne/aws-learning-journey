@@ -21,7 +21,7 @@ pre: " <b> 1.8. </b> "
 | 3 | Kết nối API backend (Axios), hiển thị danh sách sản phẩm với ảnh từ S3 | 09/06/2026 | 09/06/2026 | [Frontend Development for Serverless APIs](https://000079.awsstudygroup.com) |
 | 4 | **Thực hành Frontend:** Implement trang thêm/sửa/xóa sản phẩm, xử lý upload ảnh | 10/06/2026 | 10/06/2026 | [Frontend Integration with API Gateway](https://000135.awsstudygroup.com) |
 | 5 | Cấu hình CORS trên backend, xử lý lỗi và kiểm thử toàn bộ luồng | 11/06/2026 | 11/06/2026 | [Frontend Development for Serverless APIs – Config CORS](https://000079.awsstudygroup.com/4-config-api-gw/4-2-setting-and-cors/) |
-| 6 | Build & Deploy frontend lên S3 Static Hosting. Ôn tập, viết báo cáo worklog. Lên kế hoạch tuần 9 | 12/06/2026 | 12/06/2026 | [Static Website Hosting with Amazon S3](https://000057.awsstudygroup.com) |
+| 6 | Build & Deploy frontend lên S3 Static Hosting. Ôn tập, viết báo cáo worklog. Viết lại những gì học được sau khi tham dự event FCAJ Community Day, tìm hiểu các bài blog trên AWS. Lên kế hoạch tuần 9 | 12/06/2026 | 12/06/2026 | [Static Website Hosting with Amazon S3](https://000057.awsstudygroup.com) |
 
 ### Kết quả đạt được tuần 8
 

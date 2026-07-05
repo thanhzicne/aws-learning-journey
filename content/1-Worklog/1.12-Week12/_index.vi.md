@@ -22,7 +22,7 @@ pre: " <b> 1.12. </b> "
 | 3 | Final testing toàn bộ hệ thống: CRUD sản phẩm, upload ảnh S3, CI/CD pipeline, CloudWatch alerts | 07/07/2026 | 07/07/2026 | [Deploy Application on Docker](https://000015.awsstudygroup.com) |
 | 4 | Hoàn thiện Deployment Guide, Architecture Diagram (cập nhật CloudFront & Route 53). Quay demo video (3–5 phút): architecture → frontend demo → AWS Console → CI/CD pipeline | 08/07/2026 | 08/07/2026 | [Static Website Hosting with Amazon S3](https://000057.awsstudygroup.com) |
 | 5 | Dọn dẹp tài nguyên AWS không cần thiết. Kiểm tra lại chi phí lần cuối với Cost Explorer | 09/07/2026 | 09/07/2026 | [Cost and Usage Management](https://000064.awsstudygroup.com) |
-| 6 | Nộp project: GitHub repo, live app link. Viết báo cáo worklog tuần 12 và hoàn thiện báo cáo thực tập | 10/07/2026 | 10/07/2026 | |
+| 6 | Hoàn thành và viết Workshop dự án nhóm. Hoàn thiện báo cáo thực tập | 10/07/2026 | 10/07/2026 | |
 
 ### Kết quả đạt được tuần 12
 

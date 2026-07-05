@@ -21,7 +21,7 @@ pre: " <b> 1.11. </b> "
 | Tue | Security Audit IAM: check root user, MFA, access key rotation, Least Privilege Principle | 30/06/2026 | 30/06/2026 | [Security Compliance with AWS Security Hub](https://000018.awsstudygroup.com) |
 | Wed | Security Practice: Audit Security Groups (SSH, RDS, ports). Audit S3 (public access, versioning, lifecycle) | 01/07/2026 | 01/07/2026 | [S3 Security Best Practices](https://000069.awsstudygroup.com) |
 | Thu | Draw Architecture Diagram with draw.io. Include all components: VPC, Subnets, EC2, RDS, S3, CloudWatch, IAM | 02/07/2026 | 02/07/2026 | [Cost and Usage Management](https://000064.awsstudygroup.com) |
-| Fri | Review and write worklog report, plan Week 12 | 03/07/2026 | 03/07/2026 | |
+| Fri | Review and write worklog report. Continuing to refine and re-test each feature of the group project, and writing the project Proposal and Workshop. Plan Week 12 | 03/07/2026 | 03/07/2026 | |
 
 ### Week 11 Outcomes
 

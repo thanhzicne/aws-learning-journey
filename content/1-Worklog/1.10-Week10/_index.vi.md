@@ -21,7 +21,7 @@ pre: " <b> 1.10. </b> "
 | 3 | Viết GitHub Actions workflow: build JAR (Maven), build & push Docker image lên Docker Hub | 23/06/2026 | 23/06/2026 | [Deploying CI/CD with ECS Container – CI/CD with GitHub Actions](https://000017.awsstudygroup.com/4-cicd-github/) |
 | 4 | **Thực hành CI/CD:** Thêm bước SSH deploy lên EC2. Cấu hình GitHub Secrets cho toàn bộ pipeline | 24/06/2026 | 24/06/2026 | [Deploying CI/CD with ECS Container – CI/CD with GitHub Actions](https://000017.awsstudygroup.com/4-cicd-github/2-new-project-push-code/) |
 | 5 | Kiểm thử pipeline end-to-end: push code → trigger workflow → container mới chạy trên EC2 | 25/06/2026 | 25/06/2026 | [Deploying CI/CD with ECS Container – Check Results](https://000017.awsstudygroup.com/4-cicd-github/4-result/) |
-| 6 | Ôn tập, xem thêm AWS CodePipeline. Viết báo cáo worklog. Lên kế hoạch tuần 11 | 26/06/2026 | 26/06/2026 | [Deploy applications to EC2 with AWS CodePipeline](https://000023.awsstudygroup.com) |
+| 6 | Ôn tập, xem thêm AWS CodePipeline. Viết báo cáo worklog. Tiếp tục hoàn thành dự án nhóm, viết lại những gì học được sau khi tham dự event FCAJ Community Day. Lên kế hoạch tuần 11 | 26/06/2026 | 26/06/2026 | [Deploy applications to EC2 with AWS CodePipeline](https://000023.awsstudygroup.com) |
 
 ### Kết quả đạt được tuần 10
 

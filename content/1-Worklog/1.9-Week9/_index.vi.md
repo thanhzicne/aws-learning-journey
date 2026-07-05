@@ -21,7 +21,7 @@ pre: " <b> 1.9. </b> "
 | 3 | Viết Dockerfile cho Spring Boot backend. Build và chạy thử container backend local | 16/06/2026 | 16/06/2026 | [Deploy Application on Docker – Deploy on Local](https://000015.awsstudygroup.com/2-deploy-local/) |
 | 4 | **Thực hành Docker:** Viết Dockerfile multi-stage cho React frontend (Nginx). Cấu hình `docker-compose.yml` cho cả stack | 17/06/2026 | 17/06/2026 | [Deploy Application on Docker – Docker Compose](https://000015.awsstudygroup.com/7-docker-compose/) |
 | 5 | Push images lên Docker Hub. Cấu hình EC2 để pull và chạy containers từ Docker Hub | 18/06/2026 | 18/06/2026 | [Deploy Application on Docker – Push Image](https://000015.awsstudygroup.com/8-push-image/2-use-docker-hub/) |
-| 6 | Ôn tập, kiểm thử toàn bộ stack trên EC2. Viết báo cáo worklog. Lên kế hoạch tuần 10 | 19/06/2026 | 19/06/2026 | [Deploy Application on Docker – Configure EC2](https://000015.awsstudygroup.com/5-configure-ec2/) |
+| 6 | Ôn tập, kiểm thử toàn bộ stack trên EC2. Viết báo cáo worklog. Chọn đề tài cho dự án nhóm, vẽ sơ đồ kiến trúc dự án sử dụng các dịch vụ AWS. Lên kế hoạch tuần 10 | 19/06/2026 | 19/06/2026 | [Deploy Application on Docker – Configure EC2](https://000015.awsstudygroup.com/5-configure-ec2/) |
 
 ### Kết quả đạt được tuần 9
 
