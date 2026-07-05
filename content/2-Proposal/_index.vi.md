@@ -228,11 +228,3 @@ Hệ thống triển khai trên AWS với kiến trúc nhiều lớp (multi-tier
 - Dùng Gemini API Sandbox (miễn phí) trong giai đoạn phát triển
 
 ---
-
->Tài liệu tham khảo:
->
->[AWS Well-Architected](https://aws.amazon.com/architecture/well-architected/)
->
->[Gemini API Docs](https://ai.google.dev/docs)
->
->[Amazon SQS Best Practices](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/best-practices.html)
