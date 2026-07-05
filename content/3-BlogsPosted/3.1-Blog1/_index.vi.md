@@ -39,6 +39,6 @@ Bạn vừa tận dụng được hệ sinh thái xịn mịn (CDN + Route 53 + 
 **Nguồn tham khảo:** <https://aws.amazon.com/vi/blogs/security/building-an-ai-powered-defense-in-depth-security-architecture-for-serverless-microservices/>
 
 **Hình ảnh:**
-> ![poot1](/images/blogs/blog1/pos1.png)
+> ![poot1](/images/blogs/blog1/post1.png)
 
 **Link bài viết:** <https://www.facebook.com/groups/awsstudygroupfcj/posts/2182560955842198/?comment_id=2183278822437078&notif_id=1781333970622892&notif_t=group_comment>

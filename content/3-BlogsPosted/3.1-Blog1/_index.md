@@ -41,6 +41,6 @@ You can leverage a top-tier ecosystem (CDN + Route 53 + S3 credits) and confiden
 **References:** <https://aws.amazon.com/vi/blogs/security/building-an-ai-powered-defense-in-depth-security-architecture-for-serverless-microservices/>
 
 **Image:**
-> ![poot1](/images/blogs/blog1/pos1.png)
+> ![poot1](/images/blogs/blog1/post1.png)
 
 **Article link:** <https://www.facebook.com/groups/awsstudygroupfcj/posts/2182560955842198/?comment_id=2183278822437078&notif_id=1781333970622892&notif_t=group_comment>
