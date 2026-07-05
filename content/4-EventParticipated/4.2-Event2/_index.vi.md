@@ -240,12 +240,4 @@ FCAJ Community Day là một trong những sự kiện AWS community chất lư�
 
 > ![join_event](/images/events/event2/join_event.png)
 >
-> ![Session1](/images/events/event2/Session1.png)
->
-> ![Session2](/images/events/event2/Session2.png)
->
-> ![Session3](/images/events/event2/Session3.png)
->
-> ![Session4](/images/events/event2/Session4.png)
->
-> ![Session5](/images/events/event2/Session5.png)
+> ![ss](/images/events/event2/ss.png)

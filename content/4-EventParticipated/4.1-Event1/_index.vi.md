@@ -198,14 +198,22 @@ CloudFront không chỉ là CDN mà là **nền tảng toàn diện** cho mọi 
 
 ### Một số hình ảnh khi tham gia sự kiện
 
-> ![join_event1](/images/events/event1/join_event1.jpg)
->
 > ![join_event2](/images/events/event1/join_event2.jpg)
 >
-> ![Session1](/images/events/event1/Session1.jpg)
+> ![Session1](/images/events/event1/ss1.png)
 >
-> ![Session2](/images/events/event1/Session2.jpg)
+> ![Session2](/images/events/event1/ss2.png)
 >
-> ![Session4](/images/events/event1/Session4.jpg)
+> ![Session4](/images/events/event1/ss3.png)
 >
-> ![Session6](/images/events/event1/Session6.jpg)
+> ![Session6](/images/events/event1/ss4.png)
+>
+> ![Session1](/images/events/event1/ss1.png)
+>
+> ![Session2](/images/events/event1/ss5.png)
+>
+> ![Session4](/images/events/event1/ss6.png)
+>
+> ![Session6](/images/events/event1/ss7.png)
+>
+> ![Session6](/images/events/event1/ss8.png)
