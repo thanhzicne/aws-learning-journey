@@ -44,3 +44,4 @@ Qua quá trình thực tập, em nhận thấy bản thân vẫn còn một số
 * Tiếp tục học hỏi các công nghệ mới liên quan đến Cloud Computing, DevOps và AI để nâng cao năng lực chuyên môn và đáp ứng tốt hơn yêu cầu của doanh nghiệp sau khi tốt nghiệp.
 
 Nhìn chung, em đánh giá quá trình thực tập tại BOOTCAMP FIRST CLOUD AI JOURNEY là một trải nghiệm rất bổ ích. Chương trình không chỉ giúp em củng cố kiến thức chuyên môn mà còn rèn luyện nhiều kỹ năng thực tế và định hướng rõ ràng hơn cho mục tiêu trở thành một Cloud Engineer trong tương lai.
+.
