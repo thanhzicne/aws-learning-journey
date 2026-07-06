@@ -208,8 +208,6 @@ CloudFront không chỉ là CDN mà là **nền tảng toàn diện** cho mọi 
 >
 > ![Session6](/images/events/event1/ss4.png)
 >
-> ![Session1](/images/events/event1/ss1.png)
->
 > ![Session2](/images/events/event1/ss5.png)
 >
 > ![Session4](/images/events/event1/ss6.png)

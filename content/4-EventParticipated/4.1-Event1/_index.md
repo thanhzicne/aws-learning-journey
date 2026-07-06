@@ -226,8 +226,6 @@ Beyond the technical knowledge gained from the sessions, the networking opportun
 >
 > ![Session6](/images/events/event1/ss4.png)
 >
-> ![Session1](/images/events/event1/ss1.png)
->
 > ![Session2](/images/events/event1/ss5.png)
 >
 > ![Session4](/images/events/event1/ss6.png)
