@@ -15,8 +15,8 @@ chapter: false
 | University | Ho Chi Minh City University of Technology (HUTECH) |
 | Major | Information Technology |
 | Specialization | Software Engineering |
-| Internship company | Bootcamp First Cloud AI Journey |
-| Internship position | Cloud Engineer |
+| Internship company | Amazon Web Services Viet Nam Company Limited |
+| Internship position | Workforce Bootcamp - First Cloud AI Journey |
 | Internship duration | April 17, 2026 – July 10, 2026 |
 
 > ![Pham Duc Thanh](/images/avatar.jpg)

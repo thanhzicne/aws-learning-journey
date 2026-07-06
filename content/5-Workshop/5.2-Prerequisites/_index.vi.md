@@ -5,25 +5,76 @@ weight: 2
 chapter: false
 ---
 
-# Điều kiện tiên quyết
+## Tài khoản & công cụ
 
-| Yêu cầu | Giá trị |
-|---|---|
-| AWS account | Tài khoản có thể dùng Free Tier |
-| Region | `ap-southeast-1` |
-| Công cụ | AWS CLI, Git, Docker, Java 17, Node.js 20 |
-| Quyền IAM | VPC, EC2, RDS, S3, IAM, CloudWatch, SNS, CloudFormation |
-| Source local | Backend, frontend, Dockerfile và script deploy |
+| Yêu cầu              | Chi tiết                                                                |
+| -------------------- | ----------------------------------------------------------------------- |
+| Tài khoản AWS        | Cá nhân, region triển khai: `ap-southeast-1` (Singapore)                |
+| AWS CLI              | v2, đã cấu hình `aws configure` với IAM User có quyền phù hợp           |
+| Node.js              | v20+ (dùng cho backend Express, frontend Vite, Lambda runtime)          |
+| Docker               | Dùng để build image cho EC2 (multi-stage Dockerfile) và test LocalStack |
+| Git / GitHub         | Repo riêng, dùng GitHub Actions cho CI/CD                               |
+| Tài khoản Cloudflare | Domain riêng đã trỏ DNS về Cloudflare (thay thế CloudFront)             |
+| Gemini API Key       | Tạo từ Google AI Studio (free tier: 1500 request/ngày, 15 RPM)          |
 
-Cấu hình AWS CLI:
+## IAM Permissions cần thiết
 
-```bash
-aws configure
-aws sts get-caller-identity
+Gắn policy sau (hoặc tương đương, thu hẹp dần theo nguyên tắc least-privilege) vào IAM User dùng để triển khai:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "CoreInfraDeploy",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:*",
+        "elasticloadbalancing:*",
+        "autoscaling:*",
+        "rds:*",
+        "elasticache:*",
+        "s3:*",
+        "sqs:*",
+        "lambda:*",
+        "secretsmanager:*",
+        "kms:*",
+        "wafv2:*",
+        "cloudwatch:*",
+        "logs:*",
+        "sns:*",
+        "iam:CreateRole",
+        "iam:AttachRolePolicy",
+        "iam:PutRolePolicy",
+        "iam:PassRole",
+        "iam:GetRole",
+        "iam:CreateInstanceProfile",
+        "iam:AddRoleToInstanceProfile",
+        "iam:CreateOpenIDConnectProvider",
+        "ecr:*"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
 ```
 
-File đính kèm:
+> Đây là policy dùng trong giai đoạn triển khai/dev. Ở production, các IAM Role gắn cho EC2/Lambda (`quillo-ec2-role`, `quillo-lambda-role`, `quillo-github-actions-deploy-role`) được thu hẹp scope theo từng resource cụ thể — chi tiết ở mục [5.3 Networking](../5.3-networking/) và các mục IAM riêng liên quan.
 
-- [CloudFormation network template](/files/cloudformation/network.yml)
-- [Backend Dockerfile](/files/docker/Dockerfile)
-- [Deploy script](/files/scripts/deploy-backend.sh)
+## Chuẩn bị Local Dev (tùy chọn, để test trước khi deploy)
+
+```bash
+git clone https://github.com/Chubekho/Quillo
+cd project
+npm install
+docker compose up -d          # PostgreSQL + Redis + LocalStack
+bash infrastructure/scripts/setup-local.sh
+npm run dev                   # API :3001 + Frontend :5173
+```
+
+Xác nhận CLI đã cấu hình đúng tài khoản/region trước khi qua bước triển khai hạ tầng thật:
+
+```bash
+aws sts get-caller-identity
+aws configure get region   # kỳ vọng: ap-southeast-1
+```

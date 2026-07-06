@@ -15,8 +15,8 @@ chapter: false
 | Trường | Trường Đại Học Công Nghệ TP.HCM-HUTECH |
 | Ngành | Công nghệ thông tin |
 | Chuyên ngành | Công nghệ phần mềm |
-| Công ty thực tập | Bootcamp First Cloud AI Journey |
-| Vị trí thực tập | Cloud Engineer |
+| Công ty thực tập | Công ty TNHH Amazon Web Services Viet Nam |
+| Vị trí thực tập | Workforce Bootcamp - First Cloud AI Journey |
 | Thời gian thực tập | 17/04/2026 - 10/07/2026 |
 
 > ![Pham Duc Thanh](/images/avatar.jpg)
