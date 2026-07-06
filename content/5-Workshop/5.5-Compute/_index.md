@@ -27,7 +27,7 @@ The image is built with `--platform linux/amd64` (to avoid arm64/amd64 architect
 | Health Check | `/api/v1/health`, default threshold |
 | Security Group | `alb-sg` (80/443 from `0.0.0.0/0`) |
 
-![Application Load Balancer on AWS Console](/images/workshop/5.5-compute/alb.png)
+![Application Load Balancer on AWS Console](/images/workshop/5.5-Compute/alb.png)
 
 ## Auto Scaling Group
 
@@ -41,7 +41,7 @@ The image is built with `--platform linux/amd64` (to avoid arm64/amd64 architect
 
 To deploy a new version: CI/CD calls `autoscaling start-instance-refresh`, and the ASG replaces instances one at a time with the new version — no downtime, since the ALB keeps serving traffic from the remaining instances during the refresh.
 
-![Auto Scaling Group on AWS Console](/images/workshop/5.5-compute/asg.png)
+![Auto Scaling Group on AWS Console](/images/workshop/5.5-Compute/asg.png)
 
 ## Verification
 
