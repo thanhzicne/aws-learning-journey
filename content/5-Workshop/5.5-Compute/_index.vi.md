@@ -17,6 +17,12 @@ Backend Express API được đóng gói bằng Dockerfile **multi-stage**:
 
 Image build theo `--platform linux/amd64` (tránh lỗi kiến trúc arm64/amd64 khi build trên máy Apple Intel/Silicon), push lên **Amazon ECR** (`quillo-api`, bật `scanOnPush`).
 
+## Vì sao không dùng Cognito + API Gateway — đơn giản hóa so với kế hoạch ban đầu
+
+Kiến trúc dự tính ban đầu (xem [Proposal](/vi/2-proposal/)) có Amazon API Gateway + Cognito Authorizer đứng trước một Internal ALB. Trong quá trình triển khai thật, nhóm quyết định đơn giản hóa tầng xác thực: dùng **JWT tự quản (access token + refresh token rotation)** ngay trong Express API, và để **ALB internet-facing** nhận traffic trực tiếp — bỏ hẳn lớp API Gateway/Cognito/VPC Link.
+
+Đây là **quyết định chủ động ngay từ đầu dự án** (không phải bị chặn khách quan như trường hợp CloudFront ở mục 5.7) — với quy mô một ứng dụng đơn (single-app), tự quản JWT đủ đáp ứng yêu cầu bảo mật mà không phát sinh thêm độ trễ, chi phí và độ phức tạp vận hành của việc thêm một tầng API Gateway + Cognito User Pool.
+
 ## Application Load Balancer
 
 | Thông số | Giá trị |

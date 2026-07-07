@@ -17,6 +17,12 @@ The Express backend API is packaged using a **multi-stage** Dockerfile:
 
 The image is built with `--platform linux/amd64` (to avoid arm64/amd64 architecture mismatches when building on Apple Silicon) and pushed to **Amazon ECR** (`quillo-api`, with `scanOnPush` enabled).
 
+## Why Not Cognito + API Gateway — A Simplification from the Original Plan
+
+The originally planned architecture (see the [Proposal](/2-proposal/)) placed Amazon API Gateway + a Cognito Authorizer in front of an internal ALB. During actual implementation, the team decided to simplify the authentication layer: using **self-managed JWTs (access token + refresh token rotation)** directly inside the Express API, with the **ALB set to internet-facing** to receive traffic directly — removing the API Gateway/Cognito/VPC Link layer entirely.
+
+This was a **deliberate decision made from the start of the project** (unlike the CloudFront case in section 5.7, which was an objective external blocker) — at the scale of a single application, self-managed JWT sufficiently meets the security requirements without the added latency, cost, and operational complexity of an extra API Gateway + Cognito User Pool layer.
+
 ## Application Load Balancer
 
 | Parameter | Value |
