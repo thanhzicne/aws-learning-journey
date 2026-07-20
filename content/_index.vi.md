@@ -15,7 +15,7 @@ chapter: false
 | Trường | Trường Đại Học Công Nghệ TP.HCM-HUTECH |
 | Ngành | Công nghệ thông tin |
 | Chuyên ngành | Công nghệ phần mềm |
-| Công ty thực tập | Công ty TNHH Amazon Web Services Viet Nam |
+| Công ty thực tập | Công ty TNHH Amazon Web Services Việt Nam |
 | Vị trí thực tập | Workforce Bootcamp - First Cloud AI Journey |
 | Thời gian thực tập | 17/04/2026 - 10/07/2026 |
 
